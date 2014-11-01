@@ -69,6 +69,17 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
 	private final SpectrogramPanel panel;
 	private AudioDispatcher dispatcher;
 	private Mixer currentMixer;	
+	
+	public Mixer getCurrentMixer() {
+		return currentMixer;
+	}
+
+
+
+	public void setCurrentMixer(Mixer currentMixer) {
+		this.currentMixer = currentMixer;
+	}
+
 	private PitchEstimationAlgorithm algo;
 	private double pitch; 
 	
@@ -79,6 +90,16 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
 	private String fileName;
 	
 	
+	public String getFileName() {
+		return fileName;
+	}
+
+
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
 	private ActionListener algoChangeListener = new ActionListener(){
 		@Override
 		public void actionPerformed(final ActionEvent e) {
@@ -93,7 +114,7 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
 				e1.printStackTrace();
 			}
 	}};
-		
+	
 	public Spectrogram(String fileName){
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -104,7 +125,7 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
 		
 		JPanel pitchDetectionPanel = new PitchDetectionPanel(algoChangeListener);
 		
-		JPanel inputPanel = new InputPanel();
+		JPanel inputPanel = new InputPanel(this);
 	
 		inputPanel.addPropertyChangeListener("mixer",
 				new PropertyChangeListener() {
@@ -121,7 +142,6 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
 						}
 					}
 				});
-		
 		JPanel containerPanel = new JPanel(new GridLayout(1,0));
 		containerPanel.add(inputPanel);
 		containerPanel.add(pitchDetectionPanel);
@@ -137,12 +157,12 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
 	
 	
 	
-	private void setNewMixer(Mixer mixer) throws LineUnavailableException, UnsupportedAudioFileException {
+	public void setNewMixer(Mixer mixer) throws LineUnavailableException, UnsupportedAudioFileException {
 
 		if(dispatcher!= null){
 			dispatcher.stop();
 		}
-		if(fileName == null){
+		if(fileName == null && mixer != null){
 			final AudioFormat format = new AudioFormat(sampleRate, 16, 1, true,
 					false);
 			final DataLine.Info dataLineInfo = new DataLine.Info(
@@ -226,7 +246,7 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
 				}
 				JFrame frame = strings.length == 0 ? new Spectrogram(null) : new Spectrogram(strings[0]) ;
 				frame.pack();
-				frame.setSize(640, 480);
+				frame.setSize(1024, 768);
 				frame.setVisible(true);
 			}
 		});
