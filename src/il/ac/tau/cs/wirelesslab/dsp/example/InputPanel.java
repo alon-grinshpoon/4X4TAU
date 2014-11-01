@@ -29,10 +29,16 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.Mixer;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ButtonGroup;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -46,6 +52,12 @@ public class InputPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	Mixer mixer = null;
+	JFrame parentPanel = null;
+	
+	public InputPanel(JFrame parent){
+		this();
+		this.parentPanel = parent;
+	}
 	
 	public InputPanel(){
 		super(new BorderLayout());
@@ -60,6 +72,16 @@ public class InputPanel extends JPanel {
 			button.setActionCommand(info.toString());
 			button.addActionListener(setInput);
 		}
+
+		// Add button to select wave file from filesystem:
+		
+		JRadioButton btn = new JRadioButton();
+		btn.setText("Wave file");
+		group.add(btn);
+		btn.addActionListener(setInput);
+		btn.setActionCommand("Wave file change");
+
+		buttonPanel.add(btn);
 		this.add(new JScrollPane(buttonPanel,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER),BorderLayout.CENTER);
 		this.setMaximumSize(new Dimension(300,150));
 		this.setPreferredSize(new Dimension(300,150));
@@ -68,12 +90,36 @@ public class InputPanel extends JPanel {
 	private ActionListener setInput = new ActionListener(){
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			Spectrogram spec = (Spectrogram)InputPanel.this.parentPanel;
 			for(Mixer.Info info : Shared.getMixerInfo(false, true)){
 				if(arg0.getActionCommand().equals(info.toString())){
+					if (spec != null)
+					{
+						spec.setFileName(null);
+					}
 					Mixer newValue = AudioSystem.getMixer(info);
 					InputPanel.this.firePropertyChange("mixer", mixer, newValue);
 					InputPanel.this.mixer = newValue;
 					break;
+				}
+			}
+			if (arg0.getActionCommand().equals("Wave file change"))
+			{
+				if (spec != null)
+				{
+					JFileChooser fileChooser = new JFileChooser();
+					if (fileChooser.showOpenDialog(getComponent(0)) == JFileChooser.APPROVE_OPTION) {
+					  File file = fileChooser.getSelectedFile();
+					  spec.setFileName(file.getAbsolutePath());
+					  try
+						{
+						spec.setNewMixer(spec.getCurrentMixer());
+						}
+						catch (LineUnavailableException | UnsupportedAudioFileException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
 				}
 			}
 		}
