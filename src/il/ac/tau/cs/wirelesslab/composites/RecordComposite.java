@@ -1,28 +1,13 @@
 package il.ac.tau.cs.wirelesslab.composites;
 
 
-import java.awt.BorderLayout;
-import java.awt.Frame;
-import java.awt.Toolkit;
-import java.awt.Window;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-
 import il.ac.tau.cs.wirelesslab.graphics.Utils;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.awt.SWT_AWT;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.*;
-import org.eclipse.swt.widgets.*;
-
-import be.tarsos.dsp.example.Spectrogram;
-import be.tarsos.dsp.example.Spectrogram;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
 
 public class RecordComposite extends Composite {
 	private Button playButton;
