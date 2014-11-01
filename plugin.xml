@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="il.ac.tau.cs.wirelesslab.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="RCP Perspective"
+            class="il.ac.tau.cs.wirelesslab.Perspective"
+            id="4X4Plugin.perspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="il.ac.tau.cs.wirelesslab.views.ViewFavorites"
+            id="4X4Plugin.viewFavorites"
+            name="viewFavorites"
+            restorable="true">
+      </view>
+      <view
+            class="il.ac.tau.cs.wirelesslab.views.ViewPlayer"
+            id="4X4Plugin.viewPlayer"
+            name="viewPlayer"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="*">
+         <view
+               id="4X4Plugin.viewFavorites"
+               minimized="false"
+               relationship="stack"
+               relative="org.eclipse.ui.editorss">
+         </view>
+      </perspectiveExtension>
+      <perspectiveExtension
+            targetID="*">
+         <view
+               id="4X4Plugin.viewPlayer"
+               minimized="false"
+               relationship="stack"
+               relative="org.eclipse.ui.editorss">
+         </view>
+      </perspectiveExtension>
+   </extension>
+
+</plugin>
