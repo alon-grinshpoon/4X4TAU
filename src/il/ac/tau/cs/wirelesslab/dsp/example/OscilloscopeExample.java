@@ -22,19 +22,18 @@
 */
 
 
-package be.tarsos.dsp.example;
+package il.ac.tau.cs.wirelesslab.dsp.example;
 
 import il.ac.tau.cs.wirelesslab.dsp.AudioDispatcher;
 import il.ac.tau.cs.wirelesslab.dsp.AudioEvent;
+import il.ac.tau.cs.wirelesslab.dsp.Oscilloscope;
+import il.ac.tau.cs.wirelesslab.dsp.Oscilloscope.OscilloscopeEventHandler;
 import il.ac.tau.cs.wirelesslab.dsp.io.jvm.JVMAudioInputStream;
-import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchDetectionHandler;
-import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchDetectionResult;
-import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchProcessor;
-import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchProcessor.PitchEstimationAlgorithm;
 
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.lang.reflect.InvocationTargetException;
@@ -48,46 +47,27 @@ import javax.sound.sampled.TargetDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 
-public class PitchDetectorExample extends JFrame implements PitchDetectionHandler {
+public class OscilloscopeExample extends JFrame implements OscilloscopeEventHandler {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 3501426880288136245L;
-
-	private final JTextArea textArea;
-
-	private AudioDispatcher dispatcher;
-	private Mixer currentMixer;
+	int counter;
+	double threshold;
+	AudioDispatcher dispatcher;
+	Mixer currentMixer;
+	private final GaphPanel panel;
 	
-	private PitchEstimationAlgorithm algo;	
-	private ActionListener algoChangeListener = new ActionListener(){
-		@Override
-		public void actionPerformed(final ActionEvent e) {
-			String name = e.getActionCommand();
-			PitchEstimationAlgorithm newAlgo = PitchEstimationAlgorithm.valueOf(name);
-			algo = newAlgo;
-			try {
-				setNewMixer(currentMixer);
-			} catch (LineUnavailableException e1) {
-				e1.printStackTrace();
-			} catch (UnsupportedAudioFileException e1) {
-				e1.printStackTrace();
-			}
-	}};
-
-	public PitchDetectorExample() {
-		this.setLayout(new GridLayout(0, 1));
+	public OscilloscopeExample() {
+		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("Pitch Detector");
+		this.setTitle("Osciloscope Example");
 		
 		JPanel inputPanel = new InputPanel();
-		add(inputPanel);
+		//add(inputPanel);
 		inputPanel.addPropertyChangeListener("mixer",
 				new PropertyChangeListener() {
 					@Override
@@ -104,20 +84,47 @@ public class PitchDetectorExample extends JFrame implements PitchDetectionHandle
 					}
 				});
 		
-		algo = PitchEstimationAlgorithm.YIN;
-		
-		JPanel pitchDetectionPanel = new PitchDetectionPanel(algoChangeListener);
-		
-		add(pitchDetectionPanel);
-	
-		
-		textArea = new JTextArea();
-		textArea.setEditable(false);
-		add(new JScrollPane(textArea));
+				
+		panel = new GaphPanel();
+		this.add(inputPanel,BorderLayout.NORTH);
+		this.add(panel,BorderLayout.CENTER);
 	}
-
-
 	
+	private static class GaphPanel extends JPanel{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 4969781241442094359L;
+		
+		float data[];
+		
+		public GaphPanel(){
+			setMinimumSize(new Dimension(80,60)); 
+		}
+		
+		public void paintComponent(Graphics g) {
+	        super.paintComponent(g); //paint background
+	        g.setColor(Color.BLACK);
+			g.fillRect(0, 0,getWidth(), getHeight());
+			g.setColor(Color.WHITE);
+			if(data != null){
+				float width = getWidth();
+				float height = getHeight();
+				float halfHeight = height / 2;
+				for(int i=0; i < data.length ; i+=4){
+					 g.drawLine((int)(data[i]* width),(int)( halfHeight - data[i+1]* height),(int)( data[i+2]*width),(int)( halfHeight - data[i+3]*height));
+				}
+			}
+	    }
+		
+		public void paint(float[] data, AudioEvent event){
+			this.data = data;
+		}
+	}
+	
+	
+
 	private void setNewMixer(Mixer mixer) throws LineUnavailableException,
 			UnsupportedAudioFileException {
 		
@@ -127,11 +134,9 @@ public class PitchDetectorExample extends JFrame implements PitchDetectionHandle
 		currentMixer = mixer;
 		
 		float sampleRate = 44100;
-		int bufferSize = 1024;
+		int bufferSize = 2048;
 		int overlap = 0;
 		
-		textArea.append("Started listening with " + Shared.toLocalString(mixer.getMixerInfo().getName()) + "\n");
-
 		final AudioFormat format = new AudioFormat(sampleRate, 16, 1, true,
 				true);
 		final DataLine.Info dataLineInfo = new DataLine.Info(
@@ -148,9 +153,12 @@ public class PitchDetectorExample extends JFrame implements PitchDetectionHandle
 		dispatcher = new AudioDispatcher(audioStream, bufferSize,
 				overlap);
 
-		// add a processor
-		dispatcher.addAudioProcessor(new PitchProcessor(algo, sampleRate, bufferSize, this));
+		// add a processor, handle percussion event.
+		//dispatcher.addAudioProcessor(new DelayEffect(400,0.3,sampleRate));
+		dispatcher.addAudioProcessor(new Oscilloscope(this));
+		//dispatcher.addAudioProcessor(new AudioPlayer(format));
 		
+		// run the dispatcher (on a new thread).
 		new Thread(dispatcher,"Audio dispatching").start();
 	}
 
@@ -159,29 +167,17 @@ public class PitchDetectorExample extends JFrame implements PitchDetectionHandle
 		SwingUtilities.invokeAndWait(new Runnable() {
 			@Override
 			public void run() {
-				try {
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-				} catch (Exception e) {
-					//ignore failure to set default look en feel;
-				}
-				JFrame frame = new PitchDetectorExample();
+				JFrame frame = new OscilloscopeExample();
 				frame.pack();
+				frame.setSize(640,480);
 				frame.setVisible(true);
 			}
 		});
 	}
 
-
 	@Override
-	public void handlePitch(PitchDetectionResult pitchDetectionResult,AudioEvent audioEvent) {
-		if(pitchDetectionResult.getPitch() != -1){
-			double timeStamp = audioEvent.getTimeStamp();
-			float pitch = pitchDetectionResult.getPitch();
-			float probability = pitchDetectionResult.getProbability();
-			double rms = audioEvent.getRMS() * 100;
-			String message = String.format("Pitch detected at %.2fs: %.2fHz ( %.2f probability, RMS: %.5f )\n", timeStamp,pitch,probability,rms);
-			textArea.append(message);
-			textArea.setCaretPosition(textArea.getDocument().getLength());
-		}
+	public void handleEvent(float[] data, AudioEvent event) {
+		panel.paint(data,event);
+		panel.repaint();
 	}
 }

@@ -22,7 +22,7 @@
 */
 
 
-package be.tarsos.dsp.example;
+package il.ac.tau.cs.wirelesslab.dsp.example;
 
 import il.ac.tau.cs.wirelesslab.dsp.util.PitchConverter;
 import il.ac.tau.cs.wirelesslab.dsp.util.fft.FFT;

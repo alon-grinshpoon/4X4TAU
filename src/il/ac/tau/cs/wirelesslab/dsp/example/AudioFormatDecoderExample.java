@@ -21,7 +21,7 @@
 * 
 */
 
-package be.tarsos.dsp.example;
+package il.ac.tau.cs.wirelesslab.dsp.example;
 
 import il.ac.tau.cs.wirelesslab.dsp.AudioDispatcher;
 import il.ac.tau.cs.wirelesslab.dsp.DetermineDurationProcessor;

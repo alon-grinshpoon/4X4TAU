@@ -4,14 +4,13 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 
-import be.tarsos.dsp.example.Spectrogram;
 import il.ac.tau.cs.wirelesslab.State;
+import il.ac.tau.cs.wirelesslab.dsp.example.Spectrogram;
 import il.ac.tau.cs.wirelesslab.views.ViewSpectrogram;
 
 public class Utils {
@@ -23,6 +22,7 @@ public class Utils {
 	public final static int BUTTON_HEIGHT = 50;
 	public final static String DEFAULT_FILE_NAME = "4X4TAU.dsp";
 	public final static String DEFAULT_SKIN = "graphics/skins/default/";
+	public final static String PACKAGE_PATH = "/il/ac/tau/cs/wirelesslab/";
 
 	/**
 	 * Returns the current skin.

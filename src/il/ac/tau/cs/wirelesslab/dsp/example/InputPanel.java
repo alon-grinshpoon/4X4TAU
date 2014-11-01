@@ -22,7 +22,7 @@
 */
 
 
-package be.tarsos.dsp.example;
+package il.ac.tau.cs.wirelesslab.dsp.example;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

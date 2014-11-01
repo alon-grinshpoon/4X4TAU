@@ -22,18 +22,20 @@
 */
 
 
-package be.tarsos.dsp.example;
+package il.ac.tau.cs.wirelesslab.dsp.example;
 
 import il.ac.tau.cs.wirelesslab.dsp.AudioDispatcher;
 import il.ac.tau.cs.wirelesslab.dsp.AudioEvent;
-import il.ac.tau.cs.wirelesslab.dsp.Oscilloscope;
-import il.ac.tau.cs.wirelesslab.dsp.Oscilloscope.OscilloscopeEventHandler;
 import il.ac.tau.cs.wirelesslab.dsp.io.jvm.JVMAudioInputStream;
+import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchDetectionHandler;
+import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchDetectionResult;
+import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchProcessor;
+import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchProcessor.PitchEstimationAlgorithm;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.lang.reflect.InvocationTargetException;
@@ -48,26 +50,44 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
 
-public class OscilloscopeExample extends JFrame implements OscilloscopeEventHandler {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3501426880288136245L;
-	int counter;
-	double threshold;
-	AudioDispatcher dispatcher;
-	Mixer currentMixer;
-	private final GaphPanel panel;
+public class UtterAsterisk extends JFrame implements PitchDetectionHandler {
 	
-	public OscilloscopeExample() {
+	private final UtterAsteriskPanel panel;
+	private AudioDispatcher dispatcher;
+	private Mixer currentMixer;	
+	private PitchEstimationAlgorithm algo;	
+	private ActionListener algoChangeListener = new ActionListener(){
+		@Override
+		public void actionPerformed(final ActionEvent e) {
+			String name = e.getActionCommand();
+			PitchEstimationAlgorithm newAlgo = PitchEstimationAlgorithm.valueOf(name);
+			algo = newAlgo;
+			try {
+				setNewMixer(currentMixer);
+			} catch (LineUnavailableException e1) {
+				e1.printStackTrace();
+			} catch (UnsupportedAudioFileException e1) {
+				e1.printStackTrace();
+			}
+	}};
+	
+	public UtterAsterisk(){
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("Osciloscope Example");
+		this.setTitle("UtterAsterisk");
+		
+		panel = new UtterAsteriskPanel();
+		
+		
+		algo = PitchEstimationAlgorithm.YIN;
+		
+		JPanel pitchDetectionPanel = new PitchDetectionPanel(algoChangeListener);
 		
 		JPanel inputPanel = new InputPanel();
-		//add(inputPanel);
+	
 		inputPanel.addPropertyChangeListener("mixer",
 				new PropertyChangeListener() {
 					@Override
@@ -84,61 +104,36 @@ public class OscilloscopeExample extends JFrame implements OscilloscopeEventHand
 					}
 				});
 		
-				
-		panel = new GaphPanel();
-		this.add(inputPanel,BorderLayout.NORTH);
-		this.add(panel,BorderLayout.CENTER);
+		JPanel containerPanel = new JPanel(new GridLayout(1,0));
+		containerPanel.add(inputPanel);
+		containerPanel.add(pitchDetectionPanel);
+		this.add(containerPanel,BorderLayout.NORTH);
+		
+		JPanel otherContainer = new JPanel(new BorderLayout());
+		otherContainer.add(panel,BorderLayout.CENTER);
+		otherContainer.setBorder(new TitledBorder("3. Utter a sound (whistling works best)"));
+			
+		this.add(otherContainer,BorderLayout.CENTER);
 	}
-	
-	private static class GaphPanel extends JPanel{
 
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 4969781241442094359L;
-		
-		float data[];
-		
-		public GaphPanel(){
-			setMinimumSize(new Dimension(80,60)); 
-		}
-		
-		public void paintComponent(Graphics g) {
-	        super.paintComponent(g); //paint background
-	        g.setColor(Color.BLACK);
-			g.fillRect(0, 0,getWidth(), getHeight());
-			g.setColor(Color.WHITE);
-			if(data != null){
-				float width = getWidth();
-				float height = getHeight();
-				float halfHeight = height / 2;
-				for(int i=0; i < data.length ; i+=4){
-					 g.drawLine((int)(data[i]* width),(int)( halfHeight - data[i+1]* height),(int)( data[i+2]*width),(int)( halfHeight - data[i+3]*height));
-				}
-			}
-	    }
-		
-		public void paint(float[] data, AudioEvent event){
-			this.data = data;
-		}
-	}
 	
 	
+	
+	private void setNewMixer(Mixer mixer) throws LineUnavailableException, UnsupportedAudioFileException {
 
-	private void setNewMixer(Mixer mixer) throws LineUnavailableException,
-			UnsupportedAudioFileException {
-		
 		if(dispatcher!= null){
 			dispatcher.stop();
 		}
 		currentMixer = mixer;
 		
 		float sampleRate = 44100;
-		int bufferSize = 2048;
+		int bufferSize = 1536;
 		int overlap = 0;
 		
+		//textArea.append("Started listening with " + Shared.toLocalString(mixer.getMixerInfo().getName()) + "\n\tparams: " + threshold + "dB\n");
+
 		final AudioFormat format = new AudioFormat(sampleRate, 16, 1, true,
-				true);
+				false);
 		final DataLine.Info dataLineInfo = new DataLine.Info(
 				TargetDataLine.class, format);
 		TargetDataLine line;
@@ -154,20 +149,28 @@ public class OscilloscopeExample extends JFrame implements OscilloscopeEventHand
 				overlap);
 
 		// add a processor, handle percussion event.
-		//dispatcher.addAudioProcessor(new DelayEffect(400,0.3,sampleRate));
-		dispatcher.addAudioProcessor(new Oscilloscope(this));
-		//dispatcher.addAudioProcessor(new AudioPlayer(format));
-		
+		dispatcher.addAudioProcessor(new PitchProcessor(algo, sampleRate, bufferSize, this));
+
 		// run the dispatcher (on a new thread).
 		new Thread(dispatcher,"Audio dispatching").start();
 	}
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4787721035066991486L;
 
 	public static void main(String... strings) throws InterruptedException,
 			InvocationTargetException {
 		SwingUtilities.invokeAndWait(new Runnable() {
 			@Override
 			public void run() {
-				JFrame frame = new OscilloscopeExample();
+				try {
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				} catch (Exception e) {
+					//ignore failure to set default look en feel;
+				}
+				JFrame frame = new UtterAsterisk();
 				frame.pack();
 				frame.setSize(640,480);
 				frame.setVisible(true);
@@ -176,8 +179,10 @@ public class OscilloscopeExample extends JFrame implements OscilloscopeEventHand
 	}
 
 	@Override
-	public void handleEvent(float[] data, AudioEvent event) {
-		panel.paint(data,event);
-		panel.repaint();
+	public void handlePitch(PitchDetectionResult pitchDetectionResult,AudioEvent audioEvent) {
+		double timeStamp = audioEvent.getTimeStamp();
+		float pitch = pitchDetectionResult.getPitch();
+		panel.setMarker(timeStamp, pitch);		
 	}
+
 }

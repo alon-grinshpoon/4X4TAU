@@ -22,7 +22,7 @@
 */
 
 
-package be.tarsos.dsp.example;
+package il.ac.tau.cs.wirelesslab.dsp.example;
 
 import il.ac.tau.cs.wirelesslab.dsp.AudioDispatcher;
 import il.ac.tau.cs.wirelesslab.dsp.AudioEvent;
@@ -32,7 +32,6 @@ import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchDetectionResult;
 import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchProcessor;
 import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchProcessor.PitchEstimationAlgorithm;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,15 +48,23 @@ import javax.sound.sampled.TargetDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.border.TitledBorder;
 
-public class UtterAsterisk extends JFrame implements PitchDetectionHandler {
-	
-	private final UtterAsteriskPanel panel;
+public class PitchDetectorExample extends JFrame implements PitchDetectionHandler {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3501426880288136245L;
+
+	private final JTextArea textArea;
+
 	private AudioDispatcher dispatcher;
-	private Mixer currentMixer;	
+	private Mixer currentMixer;
+	
 	private PitchEstimationAlgorithm algo;	
 	private ActionListener algoChangeListener = new ActionListener(){
 		@Override
@@ -73,21 +80,14 @@ public class UtterAsterisk extends JFrame implements PitchDetectionHandler {
 				e1.printStackTrace();
 			}
 	}};
-	
-	public UtterAsterisk(){
-		this.setLayout(new BorderLayout());
+
+	public PitchDetectorExample() {
+		this.setLayout(new GridLayout(0, 1));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("UtterAsterisk");
-		
-		panel = new UtterAsteriskPanel();
-		
-		
-		algo = PitchEstimationAlgorithm.YIN;
-		
-		JPanel pitchDetectionPanel = new PitchDetectionPanel(algoChangeListener);
+		this.setTitle("Pitch Detector");
 		
 		JPanel inputPanel = new InputPanel();
-	
+		add(inputPanel);
 		inputPanel.addPropertyChangeListener("mixer",
 				new PropertyChangeListener() {
 					@Override
@@ -104,36 +104,36 @@ public class UtterAsterisk extends JFrame implements PitchDetectionHandler {
 					}
 				});
 		
-		JPanel containerPanel = new JPanel(new GridLayout(1,0));
-		containerPanel.add(inputPanel);
-		containerPanel.add(pitchDetectionPanel);
-		this.add(containerPanel,BorderLayout.NORTH);
+		algo = PitchEstimationAlgorithm.YIN;
 		
-		JPanel otherContainer = new JPanel(new BorderLayout());
-		otherContainer.add(panel,BorderLayout.CENTER);
-		otherContainer.setBorder(new TitledBorder("3. Utter a sound (whistling works best)"));
-			
-		this.add(otherContainer,BorderLayout.CENTER);
+		JPanel pitchDetectionPanel = new PitchDetectionPanel(algoChangeListener);
+		
+		add(pitchDetectionPanel);
+	
+		
+		textArea = new JTextArea();
+		textArea.setEditable(false);
+		add(new JScrollPane(textArea));
 	}
 
-	
-	
-	
-	private void setNewMixer(Mixer mixer) throws LineUnavailableException, UnsupportedAudioFileException {
 
+	
+	private void setNewMixer(Mixer mixer) throws LineUnavailableException,
+			UnsupportedAudioFileException {
+		
 		if(dispatcher!= null){
 			dispatcher.stop();
 		}
 		currentMixer = mixer;
 		
 		float sampleRate = 44100;
-		int bufferSize = 1536;
+		int bufferSize = 1024;
 		int overlap = 0;
 		
-		//textArea.append("Started listening with " + Shared.toLocalString(mixer.getMixerInfo().getName()) + "\n\tparams: " + threshold + "dB\n");
+		textArea.append("Started listening with " + Shared.toLocalString(mixer.getMixerInfo().getName()) + "\n");
 
 		final AudioFormat format = new AudioFormat(sampleRate, 16, 1, true,
-				false);
+				true);
 		final DataLine.Info dataLineInfo = new DataLine.Info(
 				TargetDataLine.class, format);
 		TargetDataLine line;
@@ -148,17 +148,11 @@ public class UtterAsterisk extends JFrame implements PitchDetectionHandler {
 		dispatcher = new AudioDispatcher(audioStream, bufferSize,
 				overlap);
 
-		// add a processor, handle percussion event.
+		// add a processor
 		dispatcher.addAudioProcessor(new PitchProcessor(algo, sampleRate, bufferSize, this));
-
-		// run the dispatcher (on a new thread).
+		
 		new Thread(dispatcher,"Audio dispatching").start();
 	}
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4787721035066991486L;
 
 	public static void main(String... strings) throws InterruptedException,
 			InvocationTargetException {
@@ -170,19 +164,24 @@ public class UtterAsterisk extends JFrame implements PitchDetectionHandler {
 				} catch (Exception e) {
 					//ignore failure to set default look en feel;
 				}
-				JFrame frame = new UtterAsterisk();
+				JFrame frame = new PitchDetectorExample();
 				frame.pack();
-				frame.setSize(640,480);
 				frame.setVisible(true);
 			}
 		});
 	}
 
+
 	@Override
 	public void handlePitch(PitchDetectionResult pitchDetectionResult,AudioEvent audioEvent) {
-		double timeStamp = audioEvent.getTimeStamp();
-		float pitch = pitchDetectionResult.getPitch();
-		panel.setMarker(timeStamp, pitch);		
+		if(pitchDetectionResult.getPitch() != -1){
+			double timeStamp = audioEvent.getTimeStamp();
+			float pitch = pitchDetectionResult.getPitch();
+			float probability = pitchDetectionResult.getProbability();
+			double rms = audioEvent.getRMS() * 100;
+			String message = String.format("Pitch detected at %.2fs: %.2fHz ( %.2f probability, RMS: %.5f )\n", timeStamp,pitch,probability,rms);
+			textArea.append(message);
+			textArea.setCaretPosition(textArea.getDocument().getLength());
+		}
 	}
-
 }
