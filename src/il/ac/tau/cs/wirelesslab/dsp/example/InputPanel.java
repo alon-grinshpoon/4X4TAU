@@ -30,7 +30,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
@@ -74,15 +73,15 @@ public class InputPanel extends JPanel {
 		}
 
 		// Add button to select wave file from filesystem:
-		
 		JRadioButton btn = new JRadioButton();
 		btn.setText("Wave file");
 		group.add(btn);
 		btn.addActionListener(setInput);
 		btn.setActionCommand("Wave file change");
-
 		buttonPanel.add(btn);
-		this.add(new JScrollPane(buttonPanel,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER),BorderLayout.CENTER);
+		
+		this.add(new JScrollPane(buttonPanel,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER),BorderLayout.CENTER);
 		this.setMaximumSize(new Dimension(300,150));
 		this.setPreferredSize(new Dimension(300,150));
 	}
