@@ -24,6 +24,18 @@
 
 package be.tarsos.dsp.example;
 
+import il.ac.tau.cs.wirelesslab.dsp.AudioDispatcher;
+import il.ac.tau.cs.wirelesslab.dsp.AudioEvent;
+import il.ac.tau.cs.wirelesslab.dsp.AudioProcessor;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.AudioDispatcherFactory;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.AudioPlayer;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.JVMAudioInputStream;
+import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchDetectionHandler;
+import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchDetectionResult;
+import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchProcessor;
+import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchProcessor.PitchEstimationAlgorithm;
+import il.ac.tau.cs.wirelesslab.dsp.util.fft.FFT;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -47,18 +59,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
-
-import be.tarsos.dsp.AudioDispatcher;
-import be.tarsos.dsp.AudioEvent;
-import be.tarsos.dsp.AudioProcessor;
-import be.tarsos.dsp.io.jvm.AudioDispatcherFactory;
-import be.tarsos.dsp.io.jvm.AudioPlayer;
-import be.tarsos.dsp.io.jvm.JVMAudioInputStream;
-import be.tarsos.dsp.pitch.PitchDetectionHandler;
-import be.tarsos.dsp.pitch.PitchDetectionResult;
-import be.tarsos.dsp.pitch.PitchProcessor;
-import be.tarsos.dsp.pitch.PitchProcessor.PitchEstimationAlgorithm;
-import be.tarsos.dsp.util.fft.FFT;
 
 public class Spectrogram extends JFrame implements PitchDetectionHandler {
 	

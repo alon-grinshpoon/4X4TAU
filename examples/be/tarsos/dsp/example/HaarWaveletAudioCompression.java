@@ -23,6 +23,15 @@
 
 package be.tarsos.dsp.example;
 
+import il.ac.tau.cs.wirelesslab.dsp.AudioDispatcher;
+import il.ac.tau.cs.wirelesslab.dsp.BitDepthProcessor;
+import il.ac.tau.cs.wirelesslab.dsp.GainProcessor;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.AudioDispatcherFactory;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.AudioPlayer;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.JVMAudioInputStream;
+import il.ac.tau.cs.wirelesslab.dsp.wavelet.HaarWaveletCoder;
+import il.ac.tau.cs.wirelesslab.dsp.wavelet.HaarWaveletDecoder;
+
 import java.awt.BorderLayout;
 import java.lang.reflect.InvocationTargetException;
 
@@ -36,15 +45,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
-import be.tarsos.dsp.AudioDispatcher;
-import be.tarsos.dsp.BitDepthProcessor;
-import be.tarsos.dsp.GainProcessor;
-import be.tarsos.dsp.io.jvm.AudioDispatcherFactory;
-import be.tarsos.dsp.io.jvm.AudioPlayer;
-import be.tarsos.dsp.io.jvm.JVMAudioInputStream;
-import be.tarsos.dsp.wavelet.HaarWaveletCoder;
-import be.tarsos.dsp.wavelet.HaarWaveletDecoder;
 
 public class HaarWaveletAudioCompression extends JFrame{
 

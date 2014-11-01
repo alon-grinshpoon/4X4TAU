@@ -24,6 +24,10 @@
 
 package be.tarsos.dsp.example;
 
+import il.ac.tau.cs.wirelesslab.dsp.AudioEvent;
+import il.ac.tau.cs.wirelesslab.dsp.AudioProcessor;
+import il.ac.tau.cs.wirelesslab.dsp.util.fft.FFT;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -48,10 +52,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import be.tarsos.dsp.AudioEvent;
-import be.tarsos.dsp.AudioProcessor;
 import be.tarsos.dsp.example.Player.PlayerState;
-import be.tarsos.dsp.util.fft.FFT;
 
 public class AdvancedAudioPlayer extends JFrame {
 

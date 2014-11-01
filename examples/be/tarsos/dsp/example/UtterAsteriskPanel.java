@@ -24,6 +24,8 @@
 
 package be.tarsos.dsp.example;
 
+import il.ac.tau.cs.wirelesslab.dsp.util.PitchConverter;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -31,8 +33,6 @@ import java.awt.RenderingHints;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
-
-import be.tarsos.dsp.util.PitchConverter;
 
 public class UtterAsteriskPanel extends JPanel {
 	

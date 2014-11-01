@@ -24,6 +24,16 @@
 
 package be.tarsos.dsp.example;
 
+import il.ac.tau.cs.wirelesslab.dsp.AudioDispatcher;
+import il.ac.tau.cs.wirelesslab.dsp.GainProcessor;
+import il.ac.tau.cs.wirelesslab.dsp.MultichannelToMono;
+import il.ac.tau.cs.wirelesslab.dsp.effects.FlangerEffect;
+import il.ac.tau.cs.wirelesslab.dsp.io.TarsosDSPAudioInputStream;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.AudioDispatcherFactory;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.AudioPlayer;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.JVMAudioInputStream;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.WaveformWriter;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -56,16 +66,6 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
-import be.tarsos.dsp.AudioDispatcher;
-import be.tarsos.dsp.GainProcessor;
-import be.tarsos.dsp.MultichannelToMono;
-import be.tarsos.dsp.effects.FlangerEffect;
-import be.tarsos.dsp.io.TarsosDSPAudioInputStream;
-import be.tarsos.dsp.io.jvm.AudioDispatcherFactory;
-import be.tarsos.dsp.io.jvm.AudioPlayer;
-import be.tarsos.dsp.io.jvm.JVMAudioInputStream;
-import be.tarsos.dsp.io.jvm.WaveformWriter;
 
 public class Flanger extends JFrame {
 	

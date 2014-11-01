@@ -24,6 +24,15 @@
 
 package be.tarsos.dsp.example;
 
+import il.ac.tau.cs.wirelesslab.dsp.AudioDispatcher;
+import il.ac.tau.cs.wirelesslab.dsp.AudioEvent;
+import il.ac.tau.cs.wirelesslab.dsp.AudioProcessor;
+import il.ac.tau.cs.wirelesslab.dsp.GainProcessor;
+import il.ac.tau.cs.wirelesslab.dsp.WaveformSimilarityBasedOverlapAdd;
+import il.ac.tau.cs.wirelesslab.dsp.WaveformSimilarityBasedOverlapAdd.Parameters;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.AudioDispatcherFactory;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.AudioPlayer;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
@@ -34,15 +43,6 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
-import be.tarsos.dsp.AudioDispatcher;
-import be.tarsos.dsp.AudioEvent;
-import be.tarsos.dsp.AudioProcessor;
-import be.tarsos.dsp.GainProcessor;
-import be.tarsos.dsp.WaveformSimilarityBasedOverlapAdd;
-import be.tarsos.dsp.WaveformSimilarityBasedOverlapAdd.Parameters;
-import be.tarsos.dsp.io.jvm.AudioDispatcherFactory;
-import be.tarsos.dsp.io.jvm.AudioPlayer;
 
 public class Player implements AudioProcessor {
 	

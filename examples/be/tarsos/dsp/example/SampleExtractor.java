@@ -23,6 +23,16 @@
 
 package be.tarsos.dsp.example;
 
+import il.ac.tau.cs.wirelesslab.dsp.AudioDispatcher;
+import il.ac.tau.cs.wirelesslab.dsp.StopAudioProcessor;
+import il.ac.tau.cs.wirelesslab.dsp.WaveformSimilarityBasedOverlapAdd;
+import il.ac.tau.cs.wirelesslab.dsp.WaveformSimilarityBasedOverlapAdd.Parameters;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.AudioDispatcherFactory;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.AudioPlayer;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.JVMAudioInputStream;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.WaveformWriter;
+import il.ac.tau.cs.wirelesslab.dsp.resample.RateTransposer;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.KeyEventPostProcessor;
@@ -55,16 +65,6 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
-import be.tarsos.dsp.AudioDispatcher;
-import be.tarsos.dsp.StopAudioProcessor;
-import be.tarsos.dsp.WaveformSimilarityBasedOverlapAdd;
-import be.tarsos.dsp.WaveformSimilarityBasedOverlapAdd.Parameters;
-import be.tarsos.dsp.io.jvm.AudioDispatcherFactory;
-import be.tarsos.dsp.io.jvm.AudioPlayer;
-import be.tarsos.dsp.io.jvm.JVMAudioInputStream;
-import be.tarsos.dsp.io.jvm.WaveformWriter;
-import be.tarsos.dsp.resample.RateTransposer;
 
 public class SampleExtractor  extends JFrame {
 	

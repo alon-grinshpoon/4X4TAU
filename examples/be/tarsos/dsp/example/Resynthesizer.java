@@ -23,6 +23,17 @@
 
 package be.tarsos.dsp.example;
 
+import il.ac.tau.cs.wirelesslab.dsp.AudioDispatcher;
+import il.ac.tau.cs.wirelesslab.dsp.AudioEvent;
+import il.ac.tau.cs.wirelesslab.dsp.AudioProcessor;
+import il.ac.tau.cs.wirelesslab.dsp.GainProcessor;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.AudioDispatcherFactory;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.AudioPlayer;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.WaveformWriter;
+import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchProcessor;
+import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchProcessor.PitchEstimationAlgorithm;
+import il.ac.tau.cs.wirelesslab.dsp.synthesis.PitchResyntheziser;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -49,17 +60,6 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
-import be.tarsos.dsp.AudioDispatcher;
-import be.tarsos.dsp.AudioEvent;
-import be.tarsos.dsp.AudioProcessor;
-import be.tarsos.dsp.GainProcessor;
-import be.tarsos.dsp.io.jvm.AudioDispatcherFactory;
-import be.tarsos.dsp.io.jvm.AudioPlayer;
-import be.tarsos.dsp.io.jvm.WaveformWriter;
-import be.tarsos.dsp.pitch.PitchProcessor;
-import be.tarsos.dsp.pitch.PitchProcessor.PitchEstimationAlgorithm;
-import be.tarsos.dsp.synthesis.PitchResyntheziser;
 
 /**
  * The resynthesizer example shows how to use the PitchResnthesizer class. It is

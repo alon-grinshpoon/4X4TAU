@@ -23,6 +23,19 @@
 
 package be.tarsos.dsp.example;
 
+import il.ac.tau.cs.wirelesslab.dsp.AudioDispatcher;
+import il.ac.tau.cs.wirelesslab.dsp.AudioEvent;
+import il.ac.tau.cs.wirelesslab.dsp.AudioProcessor;
+import il.ac.tau.cs.wirelesslab.dsp.SilenceDetector;
+import il.ac.tau.cs.wirelesslab.dsp.beatroot.BeatRootOnsetEventHandler;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.AudioDispatcherFactory;
+import il.ac.tau.cs.wirelesslab.dsp.onsets.ComplexOnsetDetector;
+import il.ac.tau.cs.wirelesslab.dsp.onsets.OnsetHandler;
+import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchDetectionHandler;
+import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchDetectionResult;
+import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchProcessor;
+import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchProcessor.PitchEstimationAlgorithm;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,19 +43,6 @@ import java.util.List;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
-import be.tarsos.dsp.AudioDispatcher;
-import be.tarsos.dsp.AudioEvent;
-import be.tarsos.dsp.AudioProcessor;
-import be.tarsos.dsp.SilenceDetector;
-import be.tarsos.dsp.beatroot.BeatRootOnsetEventHandler;
-import be.tarsos.dsp.io.jvm.AudioDispatcherFactory;
-import be.tarsos.dsp.onsets.ComplexOnsetDetector;
-import be.tarsos.dsp.onsets.OnsetHandler;
-import be.tarsos.dsp.pitch.PitchDetectionHandler;
-import be.tarsos.dsp.pitch.PitchDetectionResult;
-import be.tarsos.dsp.pitch.PitchProcessor;
-import be.tarsos.dsp.pitch.PitchProcessor.PitchEstimationAlgorithm;
 /**
  * Provides support for different types of command LineWavelet audio feature extraction.
  * @author Joren Six

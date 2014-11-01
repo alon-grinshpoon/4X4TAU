@@ -24,6 +24,16 @@
 
 package be.tarsos.dsp.example;
 
+import il.ac.tau.cs.wirelesslab.dsp.AudioDispatcher;
+import il.ac.tau.cs.wirelesslab.dsp.AudioProcessor;
+import il.ac.tau.cs.wirelesslab.dsp.io.TarsosDSPAudioFloatConverter;
+import il.ac.tau.cs.wirelesslab.dsp.io.TarsosDSPAudioInputStream;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.AudioPlayer;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.JVMAudioInputStream;
+import il.ac.tau.cs.wirelesslab.dsp.pitch.DTMF;
+import il.ac.tau.cs.wirelesslab.dsp.pitch.Goertzel;
+import il.ac.tau.cs.wirelesslab.dsp.pitch.Goertzel.FrequenciesDetectedHandler;
+
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -45,16 +55,6 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
-
-import be.tarsos.dsp.AudioDispatcher;
-import be.tarsos.dsp.AudioProcessor;
-import be.tarsos.dsp.io.TarsosDSPAudioFloatConverter;
-import be.tarsos.dsp.io.TarsosDSPAudioInputStream;
-import be.tarsos.dsp.io.jvm.AudioPlayer;
-import be.tarsos.dsp.io.jvm.JVMAudioInputStream;
-import be.tarsos.dsp.pitch.DTMF;
-import be.tarsos.dsp.pitch.Goertzel;
-import be.tarsos.dsp.pitch.Goertzel.FrequenciesDetectedHandler;
 
 /**
  * An example of DTMF ( Dual-tone multi-frequency signaling ) decoding with the Goertzel algorithm.

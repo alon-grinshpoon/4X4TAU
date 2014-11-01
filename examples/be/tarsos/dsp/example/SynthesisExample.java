@@ -23,16 +23,16 @@
 
 package be.tarsos.dsp.example;
 
+import il.ac.tau.cs.wirelesslab.dsp.AudioDispatcher;
+import il.ac.tau.cs.wirelesslab.dsp.effects.DelayEffect;
+import il.ac.tau.cs.wirelesslab.dsp.filters.LowPassFS;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.AudioPlayer;
+import il.ac.tau.cs.wirelesslab.dsp.synthesis.AmplitudeLFO;
+import il.ac.tau.cs.wirelesslab.dsp.synthesis.NoiseGenerator;
+import il.ac.tau.cs.wirelesslab.dsp.synthesis.SineGenerator;
+
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.LineUnavailableException;
-
-import be.tarsos.dsp.AudioDispatcher;
-import be.tarsos.dsp.effects.DelayEffect;
-import be.tarsos.dsp.filters.LowPassFS;
-import be.tarsos.dsp.io.jvm.AudioPlayer;
-import be.tarsos.dsp.synthesis.AmplitudeLFO;
-import be.tarsos.dsp.synthesis.NoiseGenerator;
-import be.tarsos.dsp.synthesis.SineGenerator;
 
 /**
  * Shows how a synthesizer can be constructed using some simple ugen blocks.

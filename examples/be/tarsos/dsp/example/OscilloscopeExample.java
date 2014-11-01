@@ -24,6 +24,12 @@
 
 package be.tarsos.dsp.example;
 
+import il.ac.tau.cs.wirelesslab.dsp.AudioDispatcher;
+import il.ac.tau.cs.wirelesslab.dsp.AudioEvent;
+import il.ac.tau.cs.wirelesslab.dsp.Oscilloscope;
+import il.ac.tau.cs.wirelesslab.dsp.Oscilloscope.OscilloscopeEventHandler;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.JVMAudioInputStream;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -42,12 +48,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
-import be.tarsos.dsp.AudioDispatcher;
-import be.tarsos.dsp.AudioEvent;
-import be.tarsos.dsp.Oscilloscope;
-import be.tarsos.dsp.Oscilloscope.OscilloscopeEventHandler;
-import be.tarsos.dsp.io.jvm.JVMAudioInputStream;
 
 public class OscilloscopeExample extends JFrame implements OscilloscopeEventHandler {
 

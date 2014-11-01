@@ -23,11 +23,11 @@
 
 package be.tarsos.dsp.example;
 
-import javax.sound.sampled.UnsupportedAudioFileException;
+import il.ac.tau.cs.wirelesslab.dsp.AudioDispatcher;
+import il.ac.tau.cs.wirelesslab.dsp.DetermineDurationProcessor;
+import il.ac.tau.cs.wirelesslab.dsp.io.jvm.AudioDispatcherFactory;
 
-import be.tarsos.dsp.AudioDispatcher;
-import be.tarsos.dsp.DetermineDurationProcessor;
-import be.tarsos.dsp.io.jvm.AudioDispatcherFactory;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * Shows how to use the PipeDecoder to decode about any audio format.

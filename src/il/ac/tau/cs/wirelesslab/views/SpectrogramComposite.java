@@ -28,9 +28,9 @@ public class SpectrogramComposite extends Composite{
 		specButton.addMouseListener(new Utils.SpectrogramMouseListener());
 		specButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false,
 				false));
-		Image img = new Image(this.getDisplay(), "C:/Users/capibara/Dropbox/Workshop/Images/save.png");
-		specButton.setImage(img);
-		specButton.setText("Spectrogram");
+		//Image img = new Image(this.getDisplay(), "C:/Users/capibara/Dropbox/Workshop/Images/save.png");
+		//specButton.setImage(img);
+		//specButton.setText("Spectrogram");
 		
 		composite = new Composite(this, SWT.NONE);
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, true,

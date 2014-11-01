@@ -24,6 +24,9 @@
 
 package be.tarsos.dsp.example;
 
+import il.ac.tau.cs.wirelesslab.dsp.util.PitchConverter;
+import il.ac.tau.cs.wirelesslab.dsp.util.fft.FFT;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -32,9 +35,6 @@ import java.awt.event.ComponentListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
-
-import be.tarsos.dsp.util.PitchConverter;
-import be.tarsos.dsp.util.fft.FFT;
 
 public class SpectrogramPanel extends JComponent implements ComponentListener{
 	/**
