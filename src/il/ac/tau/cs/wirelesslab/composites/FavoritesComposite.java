@@ -55,6 +55,7 @@ public class FavoritesComposite extends Composite {
 		favButton5.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false,
 				false));
 
+		// Set Buttons Images
 		String file = Utils.PACKAGE_PATH + Utils.getSkin() + "/Favorites.png";
 		InputStream resource = FavoritesComposite.class.getClassLoader()
 				.getResourceAsStream(file);
@@ -76,6 +77,7 @@ public class FavoritesComposite extends Composite {
 						img.getImageData().height / 2 - textSize.y, true);
 			}
 		});
+		
 		// Set Buttons Text
 		favButton1.addListener(SWT.Paint, new Listener() {
 			public void handleEvent(Event event) {

@@ -15,10 +15,8 @@ public class ViewRecord extends ViewPart {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void createPartControl(Composite parent) {
-		Label label = new Label(parent, SWT.None); //new up a Label widget
-		label.setText("This is the Record view.");
-		
+
+	public void createPartControl(Composite parent) {		
 		RecordComposite rc = new RecordComposite(parent, SWT.None);
 	}
 
