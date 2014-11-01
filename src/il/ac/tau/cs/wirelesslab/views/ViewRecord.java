@@ -19,7 +19,7 @@ public class ViewRecord extends ViewPart {
 		Label label = new Label(parent, SWT.None); //new up a Label widget
 		label.setText("This is the Record view.");
 		
-		RecordComposite cc = new RecordComposite(parent, SWT.None);
+		RecordComposite rc = new RecordComposite(parent, SWT.None);
 	}
 
 	public void setFocus() {
