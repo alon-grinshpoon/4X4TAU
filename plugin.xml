@@ -33,6 +33,12 @@
             name="viewPlayer"
             restorable="true">
       </view>
+      <view
+            class="il.ac.tau.cs.wirelesslab.views.ViewDevices"
+            id="4X4Plugin.viewDevices"
+            name="viewDevices"
+            restorable="true">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -49,6 +55,12 @@
             targetID="*">
          <view
                id="4X4Plugin.viewPlayer"
+               minimized="false"
+               relationship="stack"
+               relative="org.eclipse.ui.editorss">
+         </view>
+         <view
+               id="4X4Plugin.viewDevices"
                minimized="false"
                relationship="stack"
                relative="org.eclipse.ui.editorss">
