@@ -1,10 +1,9 @@
 package il.ac.tau.cs.wirelesslab.views;
 
-import il.ac.tau.cs.wirelesslab.composites.CustomComposite;
+import il.ac.tau.cs.wirelesslab.composites.PlayerComposite;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.part.ViewPart;
 
 public class ViewPlayer extends ViewPart {
@@ -16,10 +15,7 @@ public class ViewPlayer extends ViewPart {
 	}
 
 	public void createPartControl(Composite parent) {
-		Label label = new Label(parent, SWT.None); //new up a Label widget
-		label.setText("This is the Player view.");
-		
-		CustomComposite cc = new CustomComposite(parent, SWT.None);
+		PlayerComposite pc = new PlayerComposite(parent, SWT.None);
 	}
 
 	public void setFocus() {

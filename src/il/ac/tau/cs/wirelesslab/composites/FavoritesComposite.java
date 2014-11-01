@@ -38,11 +38,11 @@ public class FavoritesComposite extends Composite {
 		favButton4 = new Button(this, SWT.PUSH);
 		favButton5 = new Button(this, SWT.PUSH);
 
-		favButton1.addMouseListener(new Utils.ExitMouseListener());
-		favButton2.addMouseListener(new Utils.ExitMouseListener());
-		favButton3.addMouseListener(new Utils.ExitMouseListener());
-		favButton4.addMouseListener(new Utils.ExitMouseListener());
-		favButton5.addMouseListener(new Utils.ExitMouseListener());
+		//favButton1.addMouseListener(new Utils.ExitMouseListener());
+		//favButton2.addMouseListener(new Utils.ExitMouseListener());
+		//favButton3.addMouseListener(new Utils.ExitMouseListener());
+		//favButton4.addMouseListener(new Utils.ExitMouseListener());
+		//favButton5.addMouseListener(new Utils.ExitMouseListener());
 
 		favButton1.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false,
 				false));
