@@ -66,11 +66,11 @@ public class Main {
 			layout.setAutoCreateGaps(true);
 			layout.setAutoCreateContainerGaps(true);
 			// Add Button
-			XButton exitButton = new XButton("Exit", new Utils.ExitListener());
+			XButton exitButton = new XButton("Exit", new Utils.ExitActionListener());
 			//imagePanel.add(exitButton);
-			JComponent b1 = new XButton("Exit", new Utils.ExitListener());
-			JComponent b2 = new XButton("Exit", new Utils.ExitListener());
-			JComponent b3 = new XButton("Exit", new Utils.ExitListener());
+			JComponent b1 = new XButton("Exit", new Utils.ExitActionListener());
+			JComponent b2 = new XButton("Exit", new Utils.ExitActionListener());
+			JComponent b3 = new XButton("Exit", new Utils.ExitActionListener());
 
 			layout.setHorizontalGroup(
 					 layout.createSequentialGroup()

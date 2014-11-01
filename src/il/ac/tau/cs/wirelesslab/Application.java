@@ -40,7 +40,7 @@ public class Application implements IApplication {
 			}
 			return IApplication.EXIT_OK;
 		} catch (Exception e) {
-			new XDialog("Error", e.getMessage(), new Utils.ExitListener());
+			new XDialog("Error", e.getMessage(), new Utils.ExitActionListener());
 			// TODO Add logging here
 			return null;
 		} finally {
@@ -48,7 +48,7 @@ public class Application implements IApplication {
 			try {
 				State.autoSave();
 			} catch (Exception e) {
-				new XDialog("Error", e.getMessage(), new Utils.ExitListener());
+				new XDialog("Error", e.getMessage(), new Utils.ExitActionListener());
 			}
 			// Exit
 			display.dispose();

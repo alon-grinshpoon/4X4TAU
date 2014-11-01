@@ -1,5 +1,7 @@
 package il.ac.tau.cs.wirelesslab.views;
 
+import il.ac.tau.cs.wirelesslab.graphics.Utils;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.*;
@@ -30,6 +32,7 @@ public class CustomComposite extends Composite {
 		firstField.setLayoutData(gd_firstField);
 
 		browseButton = new Button(this, SWT.NONE);
+		browseButton.addMouseListener(new Utils.ExitMouseListener());
 		browseButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false,
 				false));
 		browseButton.setText("Browse...");
