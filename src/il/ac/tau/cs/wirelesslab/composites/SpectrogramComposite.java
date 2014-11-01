@@ -1,4 +1,4 @@
-package il.ac.tau.cs.wirelesslab.views;
+package il.ac.tau.cs.wirelesslab.composites;
 
 import il.ac.tau.cs.wirelesslab.graphics.Utils;
 

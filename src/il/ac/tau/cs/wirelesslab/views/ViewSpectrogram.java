@@ -1,5 +1,7 @@
 package il.ac.tau.cs.wirelesslab.views;
 
+import il.ac.tau.cs.wirelesslab.composites.SpectrogramComposite;
+
 import java.awt.Frame;
 
 import javax.swing.JApplet;
