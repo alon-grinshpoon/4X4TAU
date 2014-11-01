@@ -4,14 +4,13 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 
-import be.tarsos.dsp.example.Spectrogram;
 import il.ac.tau.cs.wirelesslab.State;
+import il.ac.tau.cs.wirelesslab.dsp.example.Spectrogram;
 import il.ac.tau.cs.wirelesslab.views.ViewSpectrogram;
 
 public class Utils {
