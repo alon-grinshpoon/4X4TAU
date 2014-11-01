@@ -3,6 +3,7 @@ package il.ac.tau.cs.wirelesslab.views;
 import il.ac.tau.cs.wirelesslab.graphics.Utils;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -27,6 +28,8 @@ public class SpectrogramComposite extends Composite{
 		specButton.addMouseListener(new Utils.SpectrogramMouseListener());
 		specButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false,
 				false));
+		Image img = new Image(this.getDisplay(), "C:/Users/capibara/Dropbox/Workshop/Images/save.png");
+		specButton.setImage(img);
 		specButton.setText("Spectrogram");
 		
 		composite = new Composite(this, SWT.NONE);
