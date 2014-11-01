@@ -1,7 +1,12 @@
 package il.ac.tau.cs.wirelesslab.views;
 
+import il.ac.tau.cs.wirelesslab.composites.FavoritesComposite;
+import il.ac.tau.cs.wirelesslab.graphics.Utils;
+
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.part.ViewPart;
 public class ViewFavorites extends ViewPart {
@@ -13,8 +18,7 @@ public class ViewFavorites extends ViewPart {
 	}
 
 	public void createPartControl(Composite parent) {
-		Label label = new Label(parent, SWT.None); //new up a Label widget
-		label.setText("This is the favorites view.");
+		FavoritesComposite fc = new FavoritesComposite(parent, SWT.None);
 	}
 
 	public void setFocus() {
