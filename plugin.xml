@@ -45,6 +45,12 @@
             name="viewSpectrogram"
             restorable="true">
       </view>
+      <view
+            class="il.ac.tau.cs.wirelesslab.views.ViewRecord"
+            id="4X4Plugin.viewRecord"
+            name="viewRecord"
+            restorable="true">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -73,6 +79,12 @@
          </view>
          <view
                id="4X4Plugin.viewSpectrogram"
+               minimized="false"
+               relationship="stack"
+               relative="org.eclipse.ui.editorss">
+         </view>
+         <view
+               id="4X4Plugin.viewRecord"
                minimized="false"
                relationship="stack"
                relative="org.eclipse.ui.editorss">
