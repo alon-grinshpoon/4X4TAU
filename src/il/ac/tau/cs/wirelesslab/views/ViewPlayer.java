@@ -16,6 +16,8 @@ public class ViewPlayer extends ViewPart {
 	public void createPartControl(Composite parent) {
 		Label label = new Label(parent, SWT.None); //new up a Label widget
 		label.setText("This is the Player view.");
+		
+		CustomComposite cc = new CustomComposite(parent, SWT.None);
 	}
 
 	public void setFocus() {
