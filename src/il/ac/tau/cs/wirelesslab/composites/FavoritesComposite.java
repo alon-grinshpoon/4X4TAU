@@ -1,26 +1,11 @@
 package il.ac.tau.cs.wirelesslab.composites;
 
-import java.awt.BorderLayout;
-import java.awt.Frame;
-import java.awt.Toolkit;
-import java.awt.Window;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
-
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-
 import il.ac.tau.cs.wirelesslab.graphics.Utils;
-
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.awt.SWT_AWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
-
-import be.tarsos.dsp.example.Spectrogram;
 
 public class FavoritesComposite extends Composite {
 	private Button favButton1;
@@ -66,11 +51,14 @@ public class FavoritesComposite extends Composite {
 		favButton5.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false,
 				false));
 
-		favButton1.setText("Fav 1");
-		favButton2.setText("Fav 2");
-		favButton3.setText("Fav 3");
-		favButton4.setText("Fav 4");
-		favButton5.setText("Fav 5");
+		String file = Utils.PACKAGE_PATH + Utils.getSkin() + "/Favorites.png";
+		InputStream resource = FavoritesComposite.class.getClassLoader().getResourceAsStream(file);
+		Image img = new Image(this.getDisplay(), resource);
+		favButton1.setImage(img);
+		favButton2.setImage(img);
+		favButton3.setImage(img);
+		favButton4.setImage(img);
+		favButton5.setImage(img);
 
 		composite = new Composite(this, SWT.NONE);
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, true,

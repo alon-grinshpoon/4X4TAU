@@ -23,6 +23,7 @@ public class Utils {
 	public final static int BUTTON_HEIGHT = 50;
 	public final static String DEFAULT_FILE_NAME = "4X4TAU.dsp";
 	public final static String DEFAULT_SKIN = "graphics/skins/default/";
+	public final static String PACKAGE_PATH = "/il/ac/tau/cs/wirelesslab/";
 
 	/**
 	 * Returns the current skin.
