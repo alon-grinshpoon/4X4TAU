@@ -4,10 +4,15 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 
+import be.tarsos.dsp.example.Spectrogram;
 import il.ac.tau.cs.wirelesslab.State;
+import il.ac.tau.cs.wirelesslab.views.ViewSpectrogram;
 
 public class Utils {
 
@@ -63,6 +68,38 @@ public class Utils {
 				new XDialog("Error", exception.getMessage());
 			}
 			System.exit(0);
+		}
+	}
+	
+	public static class SpectrogramMouseListener implements MouseListener{
+		public void mouseDoubleClick(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void mouseDown(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void mouseUp(MouseEvent e) {
+			try {
+				if (ViewSpectrogram.spectrogram == null)
+				{
+					ViewSpectrogram.spectrogram = new Spectrogram(null);
+					ViewSpectrogram.spectrogram.pack();
+					ViewSpectrogram.spectrogram.setSize(1024, 768);
+					ViewSpectrogram.spectrogram.setVisible(true);
+					ViewSpectrogram.spectrogram.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+				}
+				else
+				{
+					ViewSpectrogram.spectrogram.setVisible(true);
+				}
+				
+			} catch (Exception exception) {
+				new XDialog("Error", exception.getMessage());
+			}
 		}
 	}
 }
