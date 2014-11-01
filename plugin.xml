@@ -39,6 +39,12 @@
             name="viewDevices"
             restorable="true">
       </view>
+      <view
+            class="il.ac.tau.cs.wirelesslab.views.ViewSpectrogram"
+            id="4X4Plugin.viewSpectrogram"
+            name="viewSpectrogram"
+            restorable="true">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -61,6 +67,12 @@
          </view>
          <view
                id="4X4Plugin.viewDevices"
+               minimized="false"
+               relationship="stack"
+               relative="org.eclipse.ui.editorss">
+         </view>
+         <view
+               id="4X4Plugin.viewSpectrogram"
                minimized="false"
                relationship="stack"
                relative="org.eclipse.ui.editorss">
