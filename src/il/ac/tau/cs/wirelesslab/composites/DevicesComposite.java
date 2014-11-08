@@ -36,7 +36,7 @@ public class DevicesComposite extends Composite {
 			{
 				if (list.getSelectionCount() > 0)
 				{
-					System.out.println("You selected: " + list.getSelection()[0].toString());
+					System.out.println("You selected the device: " + list.getSelection()[0].toString());
 				}
 			}
 		});
