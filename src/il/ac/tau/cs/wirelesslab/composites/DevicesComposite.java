@@ -1,5 +1,7 @@
 package il.ac.tau.cs.wirelesslab.composites;
 
+import il.ac.tau.cs.wirelesslab.State;
+
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Mixer.Info;
 
@@ -37,6 +39,7 @@ public class DevicesComposite extends Composite {
 				if (list.getSelectionCount() > 0)
 				{
 					System.out.println("You selected the device: " + list.getSelection()[0].toString());
+					State.getData().setMixer(list.getSelection()[0].toString());
 				}
 			}
 		});

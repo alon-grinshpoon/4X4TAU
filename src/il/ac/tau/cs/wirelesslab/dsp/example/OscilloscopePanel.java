@@ -49,7 +49,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-public class OscilloscopeExample extends JFrame implements OscilloscopeEventHandler {
+public class OscilloscopePanel extends JFrame implements OscilloscopeEventHandler {
 
 	/**
 	 * 
@@ -61,10 +61,10 @@ public class OscilloscopeExample extends JFrame implements OscilloscopeEventHand
 	Mixer currentMixer;
 	private final GaphPanel panel;
 	
-	public OscilloscopeExample() {
+	public OscilloscopePanel() {
 		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("Osciloscope Example");
+		this.setTitle("Osciloscope");
 		
 		JPanel inputPanel = new InputPanel();
 		//add(inputPanel);
@@ -167,7 +167,7 @@ public class OscilloscopeExample extends JFrame implements OscilloscopeEventHand
 		SwingUtilities.invokeAndWait(new Runnable() {
 			@Override
 			public void run() {
-				JFrame frame = new OscilloscopeExample();
+				JFrame frame = new OscilloscopePanel();
 				frame.pack();
 				frame.setSize(640,480);
 				frame.setVisible(true);

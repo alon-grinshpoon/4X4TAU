@@ -1,15 +1,31 @@
 package il.ac.tau.cs.wirelesslab.graphics;
 
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Mixer;
+import javax.sound.sampled.TargetDataLine;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.sound.sampled.Mixer.Info;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 
+import il.ac.tau.cs.wirelesslab.SoundRecorder;
 import il.ac.tau.cs.wirelesslab.State;
+import il.ac.tau.cs.wirelesslab.composites.RecordComposite;
+import il.ac.tau.cs.wirelesslab.dsp.example.OscilloscopePanel;
 import il.ac.tau.cs.wirelesslab.dsp.example.Spectrogram;
 import il.ac.tau.cs.wirelesslab.views.ViewSpectrogram;
 
@@ -44,6 +60,30 @@ public class Utils {
 			}
 			System.exit(0);
 		}
+	}
+	
+	public static File GetFileFromDialog()
+	{
+		JFileChooser fileChooser = new JFileChooser();
+		if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+		  return fileChooser.getSelectedFile();
+		}
+		else
+		{
+			return null;
+		}
+	}
+	
+	public static Mixer GetMixerFromString(String mixerName)
+	{
+		Info[] mixersInfos = AudioSystem.getMixerInfo();
+		for (Info info : mixersInfos) {
+			if (info.getName().equals(mixerName))
+			{
+				return AudioSystem.getMixer(info);
+			}
+		}
+		return null;
 	}
 	
 	/**
@@ -102,4 +142,125 @@ public class Utils {
 			}
 		}
 	}
+	
+	public static class RecordButtonMouseListener implements MouseListener
+	{
+
+		@Override
+		public void mouseDoubleClick(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseDown(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseUp(MouseEvent e) {
+			JFileChooser fileChooser = new JFileChooser();
+			File file = null;
+			if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+				file = fileChooser.getSelectedFile();
+			}
+			if (file != null)
+			{
+				if (State.getData().getMixer() != null)
+				{
+					Mixer mixer = GetMixerFromString(State.getData().getMixer());
+					final SoundRecorder recorder = new SoundRecorder(file, mixer);
+			        // creates a new thread that waits for a specified
+			        // of time before stopping
+			        Thread stopper = new Thread(new Runnable() {
+			            public void run() {
+			                try {
+			                    Thread.sleep(SoundRecorder.RECORD_TIME);
+			                } catch (InterruptedException ex) {
+			                    ex.printStackTrace();
+			                }
+			                recorder.Finish();
+			            }
+			        });
+			 
+			        stopper.start();
+			 
+			        // start recording
+			        recorder.Start();
+			    }
+				}
+				else
+				{
+					AudioFormat format = new AudioFormat(8000.0f, 16, 1, true, true);
+				    try {
+						TargetDataLine microphone = AudioSystem.getTargetDataLine(format);
+					} catch (LineUnavailableException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
+	
+	public static class StopButtonMouseListener implements MouseListener{
+
+		@Override
+		public void mouseDoubleClick(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseDown(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseUp(MouseEvent e) {
+			RecordComposite.setRecording(false);
+		}
+	}
+	
+	public static class OscilloscopeButtonMouseListener implements MouseListener
+	{
+
+		@Override
+		public void mouseDoubleClick(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseDown(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseUp(MouseEvent e) {
+			try {
+				if (ViewSpectrogram.oscilloscope == null)
+				{
+					ViewSpectrogram.oscilloscope = new OscilloscopePanel();
+					ViewSpectrogram.oscilloscope.pack();
+					ViewSpectrogram.oscilloscope.setSize(1024, 768);
+					ViewSpectrogram.oscilloscope.setVisible(true);
+					ViewSpectrogram.oscilloscope
+							.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+				} 
+				else 
+				{
+					ViewSpectrogram.oscilloscope.setVisible(true);
+				}
+
+			} catch (Exception exception) {
+				new XDialog("Error", exception.getMessage());
+			}
+		}
+		
+	}
 }
+
+

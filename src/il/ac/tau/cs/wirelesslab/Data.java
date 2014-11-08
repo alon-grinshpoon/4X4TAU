@@ -16,6 +16,7 @@ public class Data implements Serializable {
 	private double gain;
 	private int volume;
 	private String skin;
+	private String mixer = null;
 	private double[] favories;
 	private List<String> skins;
 
@@ -81,6 +82,14 @@ public class Data implements Serializable {
 
 	public void addSkin(String skin) {
 		this.skins.add(skin);
+	}
+
+	public String getMixer() {
+		return mixer;
+	}
+
+	public void setMixer(String mixer) {
+		this.mixer = mixer;
 	}
 
 }
