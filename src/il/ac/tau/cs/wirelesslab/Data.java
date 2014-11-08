@@ -1,5 +1,6 @@
 package il.ac.tau.cs.wirelesslab;
 
+import il.ac.tau.cs.wirelesslab.composites.FavoritesComposite;
 import il.ac.tau.cs.wirelesslab.graphics.Utils;
 
 import java.io.Serializable;
@@ -13,6 +14,7 @@ public class Data implements Serializable {
 	private double gain;
 	private int volume;
 	private String skin;
+	private double[] favories;
 
 	/**
 	 * Construct a set of parameters
@@ -22,6 +24,10 @@ public class Data implements Serializable {
 		setGain(0);
 		setVolume(0);
 		setSkin(Utils.DEFAULT_SKIN); // Initialize default skin
+		favories = new double[FavoritesComposite.NUM_OF_FAVORITES];
+		for (int i = 0; i < FavoritesComposite.NUM_OF_FAVORITES; i++){
+			favories[i] = 0;
+		}
 	}
 		
 	public int getVolume() {
@@ -54,6 +60,14 @@ public class Data implements Serializable {
 	
 	public void setSkin(String skin) {
 		this.skin = skin;
+	}
+	
+	public void setFavorite(int i, double frequency) {
+		this.favories[i-1] = frequency;
+	}
+	
+	public double getFavorite(int i) {
+		return this.favories[i-1];
 	}
 
 }
