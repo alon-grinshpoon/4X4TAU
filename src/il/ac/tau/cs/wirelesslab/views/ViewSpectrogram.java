@@ -21,6 +21,7 @@ public class ViewSpectrogram extends ViewPart {
 
 	public static final String ID = "4X4Plugin.viewSpectrogram";
 	public static JFrame spectrogram = null;
+	public static JFrame oscilloscope = null;
 	public ViewSpectrogram() {
 		// TODO Auto-generated constructor stub
 	}

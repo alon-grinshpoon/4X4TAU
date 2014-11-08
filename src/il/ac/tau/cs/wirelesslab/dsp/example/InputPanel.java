@@ -24,6 +24,8 @@
 
 package il.ac.tau.cs.wirelesslab.dsp.example;
 
+import il.ac.tau.cs.wirelesslab.graphics.Utils;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -102,15 +104,17 @@ public class InputPanel extends JPanel {
 					break;
 				}
 			}
+			
 			if (arg0.getActionCommand().equals("Wave file change"))
 			{
+				// Open popup dialog to select wave file:
 				if (spec != null)
 				{
-					JFileChooser fileChooser = new JFileChooser();
-					if (fileChooser.showOpenDialog(getComponent(0)) == JFileChooser.APPROVE_OPTION) {
-					  File file = fileChooser.getSelectedFile();
-					  spec.setFileName(file.getAbsolutePath());
-					  try
+					File file = Utils.GetFileFromDialog();
+					if (file != null)
+					{
+						spec.setFileName(file.getAbsolutePath());
+						try
 						{
 						spec.setNewMixer(spec.getCurrentMixer());
 						}

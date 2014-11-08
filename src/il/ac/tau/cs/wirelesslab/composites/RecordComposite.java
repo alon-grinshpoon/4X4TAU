@@ -1,15 +1,17 @@
 package il.ac.tau.cs.wirelesslab.composites;
 
+import java.io.File;
 import java.io.InputStream;
 
+import javax.swing.JFileChooser;
+
 import il.ac.tau.cs.wirelesslab.graphics.Utils;
+import il.ac.tau.cs.wirelesslab.SoundRecorder;
 
 import org.eclipse.swt.SWT;
-
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
-
 import org.eclipse.swt.graphics.Image;
-
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -22,7 +24,9 @@ public class RecordComposite extends Composite {
 	private Button backwardButton;
 	private Button pauseButton;
 	private Button stopButton;
-
+	private static boolean isRecording = false;
+	public static SoundRecorder recorder = null;
+	
 	final static int NUM_OF_BUTTONS = 6;
 
 	private Composite composite;
@@ -45,11 +49,11 @@ public class RecordComposite extends Composite {
 		forwardButton = new Button(this, SWT.PUSH);
 
 		playButton.addMouseListener(new Utils.ExitMouseListener());
-		recordButton.addMouseListener(new Utils.ExitMouseListener());
+		recordButton.addMouseListener(new Utils.RecordButtonMouseListener());
 		forwardButton.addMouseListener(new Utils.ExitMouseListener());
 		backwardButton.addMouseListener(new Utils.ExitMouseListener());
 		pauseButton.addMouseListener(new Utils.ExitMouseListener());
-		stopButton.addMouseListener(new Utils.ExitMouseListener());
+		stopButton.addMouseListener(new Utils.StopButtonMouseListener());
 
 		backwardButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false,
 				false));
@@ -119,5 +123,13 @@ public class RecordComposite extends Composite {
 
 	public Composite getComposite() {
 		return composite;
+	}
+
+	public static boolean isRecording() {
+		return isRecording;
+	}
+
+	public static void setRecording(boolean isRecording) {
+		RecordComposite.isRecording = isRecording;
 	}
 }

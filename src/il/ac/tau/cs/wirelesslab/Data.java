@@ -13,7 +13,8 @@ public class Data implements Serializable {
 	private double gain;
 	private int volume;
 	private String skin;
-
+	private String mixer = null;
+	
 	/**
 	 * Construct a set of parameters
 	 */
@@ -54,6 +55,14 @@ public class Data implements Serializable {
 	
 	public void setSkin(String skin) {
 		this.skin = skin;
+	}
+
+	public String getMixer() {
+		return mixer;
+	}
+
+	public void setMixer(String mixer) {
+		this.mixer = mixer;
 	}
 
 }
