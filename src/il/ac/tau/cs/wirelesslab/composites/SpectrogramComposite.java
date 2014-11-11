@@ -60,7 +60,7 @@ public class SpectrogramComposite extends Composite{
 		oscillButton.addListener(SWT.Paint, new Listener() {
 	        public void handleEvent(Event event) {
 	            GC gc = event.gc;
-	            String text = "Start Osclloscope Screen";
+	            String text = "Start Oscilloscope Screen";
 				Point textSize = gc.textExtent(text);
 	            gc.drawText(text, img.getImageData().width / 2 - textSize.x / 2, img.getImageData().height / 2 - textSize.y, true);
 	        }
