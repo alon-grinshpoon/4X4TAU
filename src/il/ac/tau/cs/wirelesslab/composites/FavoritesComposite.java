@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 import il.ac.tau.cs.wirelesslab.Data;
 import il.ac.tau.cs.wirelesslab.State;
 import il.ac.tau.cs.wirelesslab.graphics.Utils;
-import il.ac.tau.cs.wirelesslab.views.ViewPlayer;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
@@ -178,6 +177,8 @@ public class FavoritesComposite extends Composite {
 			Data data = State.getData();
 			double favorive = data.getFavorite(this.station);
 			data.setFrequency(favorive);
+			// Change the frequency in the view
+			PlayerComposite.setFrequency(favorive);
 		}
 
 	}
@@ -204,7 +205,7 @@ public class FavoritesComposite extends Composite {
 		public void mouseUp(MouseEvent e) {
 			// Save favorite station
 			Data data = State.getData();
-			double frequency = data.getFrequency();
+			double frequency = PlayerComposite.getFrequency();
 			data.setFavorite(this.station, frequency);
 			JOptionPane.showMessageDialog(null, "Frequency saved in favorite " + this.station + "!", "OK", JOptionPane.INFORMATION_MESSAGE);
 		}

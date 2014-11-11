@@ -1,16 +1,10 @@
 package il.ac.tau.cs.wirelesslab.composites;
 
-import java.io.File;
-import java.io.InputStream;
-
-import javax.swing.JFileChooser;
-
 import il.ac.tau.cs.wirelesslab.graphics.Utils;
 import il.ac.tau.cs.wirelesslab.SoundRecorder;
 
+import java.io.InputStream;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;

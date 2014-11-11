@@ -1,7 +1,6 @@
 package il.ac.tau.cs.wirelesslab.composites;
 
 import javax.swing.JOptionPane;
-import javax.swing.plaf.ListUI;
 
 import il.ac.tau.cs.wirelesslab.State;
 
