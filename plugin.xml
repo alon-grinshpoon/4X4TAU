@@ -43,6 +43,17 @@
                   tooltip="Exit the application">
             </command>
          </menu>
+         <menu
+               id="4X4Plugin.helpMenu"
+               label="help">
+            <command
+                  commandId="org.eclipse.ui.help.aboutAction"
+                  hoverIcon="icons/help_hover.gif"
+                  icon="icons/help_active.gif"
+                  style="push"
+                  tooltip="About 4X4Tau Product">
+            </command>
+         </menu>
       </menuContribution>
    </extension>
    <extension
