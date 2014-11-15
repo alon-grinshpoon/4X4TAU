@@ -17,7 +17,7 @@ public class Data implements Serializable {
 	private int volume;
 	private String skin;
 	private String mixer = null;
-	private double[] favories;
+	private double[] favorites;
 	private List<String> skins;
 
 	/**
@@ -28,9 +28,9 @@ public class Data implements Serializable {
 		setGain(0);
 		setVolume(0);
 		setSkin(Utils.DEFAULT_SKIN); // Initialize default skin
-		favories = new double[FavoritesComposite.NUM_OF_FAVORITES];
+		favorites = new double[FavoritesComposite.NUM_OF_FAVORITES];
 		for (int i = 0; i < FavoritesComposite.NUM_OF_FAVORITES; i++){
-			favories[i] = 0;
+			favorites[i] = 0;
 		}
 		skins = new ArrayList<>();
 		skins.add(Utils.DEFAULT_SKIN);
@@ -69,11 +69,11 @@ public class Data implements Serializable {
 	}
 	
 	public void setFavorite(int i, double frequency) {
-		this.favories[i-1] = frequency;
+		this.favorites[i-1] = frequency;
 	}
 	
 	public double getFavorite(int i) {
-		return this.favories[i-1];
+		return this.favorites[i-1];
 	}
 	
 	public List<String> getSkins() {
