@@ -48,7 +48,15 @@
                   icon="icons/play_active.gif"
                   label="Player"
                   style="push"
-                  tooltip="Play\Record sound">
+                  tooltip="Play sound">
+            </command>
+            <command
+                  commandId="4X4Plugin.Exit"
+                  hoverIcon="icons/record_hover.gif"
+                  icon="icons/record_active.gif"
+                  label="Record"
+                  style="push"
+                  tooltip="Record sound">
             </command>
             <command
                   commandId="4X4Plugin.Spectogram"
