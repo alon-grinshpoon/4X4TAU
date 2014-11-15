@@ -123,6 +123,12 @@
             name="viewRecord"
             restorable="true">
       </view>
+      <view
+            class="il.ac.tau.cs.wirelesslab.views.ViewSkin"
+            id="4X4Plugin.viewSkin"
+            name="viewSkin"
+            restorable="true">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
@@ -157,6 +163,12 @@
          </view>
          <view
                id="4X4Plugin.viewRecord"
+               minimized="false"
+               relationship="stack"
+               relative="org.eclipse.ui.editorss">
+         </view>
+         <view
+               id="4X4Plugin.viewSkin"
                minimized="false"
                relationship="stack"
                relative="org.eclipse.ui.editorss">

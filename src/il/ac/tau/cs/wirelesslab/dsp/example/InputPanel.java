@@ -24,13 +24,14 @@
 
 package il.ac.tau.cs.wirelesslab.dsp.example;
 
+import il.ac.tau.cs.wirelesslab.graphics.Utils;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
@@ -74,15 +75,15 @@ public class InputPanel extends JPanel {
 		}
 
 		// Add button to select wave file from filesystem:
-		
 		JRadioButton btn = new JRadioButton();
 		btn.setText("Wave file");
 		group.add(btn);
 		btn.addActionListener(setInput);
 		btn.setActionCommand("Wave file change");
-
 		buttonPanel.add(btn);
-		this.add(new JScrollPane(buttonPanel,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER),BorderLayout.CENTER);
+		
+		this.add(new JScrollPane(buttonPanel,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER),BorderLayout.CENTER);
 		this.setMaximumSize(new Dimension(300,150));
 		this.setPreferredSize(new Dimension(300,150));
 	}
@@ -103,15 +104,17 @@ public class InputPanel extends JPanel {
 					break;
 				}
 			}
+			
 			if (arg0.getActionCommand().equals("Wave file change"))
 			{
+				// Open popup dialog to select wave file:
 				if (spec != null)
 				{
-					JFileChooser fileChooser = new JFileChooser();
-					if (fileChooser.showOpenDialog(getComponent(0)) == JFileChooser.APPROVE_OPTION) {
-					  File file = fileChooser.getSelectedFile();
-					  spec.setFileName(file.getAbsolutePath());
-					  try
+					File file = Utils.GetFileFromDialog();
+					if (file != null)
+					{
+						spec.setFileName(file.getAbsolutePath());
+						try
 						{
 						spec.setNewMixer(spec.getCurrentMixer());
 						}

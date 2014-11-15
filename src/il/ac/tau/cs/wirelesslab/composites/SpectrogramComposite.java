@@ -19,6 +19,7 @@ public class SpectrogramComposite extends Composite{
 	
 	private Button specButton;
 	private Composite composite;
+	private Button oscillButton;
 	
 	public SpectrogramComposite(Composite parent, int style) {
 		super(parent, style);
@@ -27,7 +28,7 @@ public class SpectrogramComposite extends Composite{
 	
 	public void createContents() {
 		final GridLayout gridLayout = new GridLayout();
-		gridLayout.numColumns = 1;
+		gridLayout.numColumns = 2;
 		setLayout(gridLayout);
 		
 		specButton = new Button(this, SWT.NONE);
@@ -35,11 +36,16 @@ public class SpectrogramComposite extends Composite{
 		specButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false,
 				false));
 
+		oscillButton = new Button(this, SWT.NONE);
+		oscillButton.addMouseListener(new Utils.OscilloscopeButtonMouseListener());
+		oscillButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
+		
 		// Set Button Image
 		String file = Utils.PACKAGE_PATH + Utils.getSkin() + "/SoundWave.png";
 		InputStream resource = FavoritesComposite.class.getClassLoader().getResourceAsStream(file);
 		final Image img = new Image(this.getDisplay(), resource);
 		specButton.setImage(img);
+		oscillButton.setImage(img);
 		
 		// Set Button Text
 		specButton.addListener(SWT.Paint, new Listener() {
@@ -51,6 +57,15 @@ public class SpectrogramComposite extends Composite{
 	        }
 	    });
 
+		oscillButton.addListener(SWT.Paint, new Listener() {
+	        public void handleEvent(Event event) {
+	            GC gc = event.gc;
+	            String text = "Start Oscilloscope Screen";
+				Point textSize = gc.textExtent(text);
+	            gc.drawText(text, img.getImageData().width / 2 - textSize.x / 2, img.getImageData().height / 2 - textSize.y, true);
+	        }
+	    });
+		
 		// Set Composites
 		composite = new Composite(this, SWT.NONE);
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, true,
