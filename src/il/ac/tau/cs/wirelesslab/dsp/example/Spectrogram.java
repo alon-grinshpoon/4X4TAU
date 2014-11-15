@@ -35,6 +35,7 @@ import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchDetectionResult;
 import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchProcessor;
 import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchProcessor.PitchEstimationAlgorithm;
 import il.ac.tau.cs.wirelesslab.dsp.util.fft.FFT;
+import il.ac.tau.cs.wirelesslab.graphics.XDialog;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -55,6 +56,7 @@ import javax.sound.sampled.Mixer;
 import javax.sound.sampled.TargetDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -125,7 +127,7 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
 		
 		JPanel pitchDetectionPanel = new PitchDetectionPanel(algoChangeListener);
 		
-		JPanel inputPanel = new InputPanel(this);
+		JPanel inputPanel = new InputPanel(this, true);
 	
 		inputPanel.addPropertyChangeListener("mixer",
 				new PropertyChangeListener() {
@@ -135,6 +137,9 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
 							setNewMixer((Mixer) arg0.getNewValue());
 						} catch (LineUnavailableException e) {
 							// TODO Auto-generated catch block
+							Object source = arg0.getSource();
+							JOptionPane.showMessageDialog(null, "Selected mixer is currently in use!", 
+									"Error", JOptionPane.ERROR_MESSAGE);
 							e.printStackTrace();
 						} catch (UnsupportedAudioFileException e) {
 							// TODO Auto-generated catch block
@@ -162,6 +167,13 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
 		if(dispatcher!= null){
 			dispatcher.stop();
 		}
+		
+		if (mixer == null)
+		{
+			currentMixer = null;
+			return;
+		}
+		
 		if(fileName == null && mixer != null){
 			final AudioFormat format = new AudioFormat(sampleRate, 16, 1, true,
 					false);
@@ -232,25 +244,4 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
 		}
 		
 	}
-	
-	public static void main(final String... strings) throws InterruptedException,
-			InvocationTargetException {
-		SwingUtilities.invokeAndWait(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					UIManager.setLookAndFeel(UIManager
-							.getSystemLookAndFeelClassName());
-				} catch (Exception e) {
-					// ignore failure to set default look en feel;
-				}
-				JFrame frame = strings.length == 0 ? new Spectrogram(null) : new Spectrogram(strings[0]) ;
-				frame.pack();
-				frame.setSize(1024, 768);
-				frame.setVisible(true);
-			}
-		});
-}
-	
-
 }

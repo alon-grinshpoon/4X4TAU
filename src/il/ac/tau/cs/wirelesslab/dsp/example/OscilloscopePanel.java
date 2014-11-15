@@ -46,6 +46,7 @@ import javax.sound.sampled.Mixer;
 import javax.sound.sampled.TargetDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -66,7 +67,7 @@ public class OscilloscopePanel extends JFrame implements OscilloscopeEventHandle
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Osciloscope");
 		
-		JPanel inputPanel = new InputPanel();
+		JPanel inputPanel = new InputPanel(false);
 		//add(inputPanel);
 		inputPanel.addPropertyChangeListener("mixer",
 				new PropertyChangeListener() {
@@ -76,6 +77,8 @@ public class OscilloscopePanel extends JFrame implements OscilloscopeEventHandle
 							setNewMixer((Mixer) arg0.getNewValue());
 						} catch (LineUnavailableException e) {
 							// TODO Auto-generated catch block
+							JOptionPane.showMessageDialog(null, "Selected mixer is currently in use!", 
+									"Error", JOptionPane.ERROR_MESSAGE);
 							e.printStackTrace();
 						} catch (UnsupportedAudioFileException e) {
 							// TODO Auto-generated catch block
@@ -131,7 +134,14 @@ public class OscilloscopePanel extends JFrame implements OscilloscopeEventHandle
 		if(dispatcher!= null){
 			dispatcher.stop();
 		}
+		
 		currentMixer = mixer;
+
+		if (mixer == null)
+		{
+			return;
+		}
+		
 		
 		float sampleRate = 44100;
 		int bufferSize = 2048;
@@ -152,7 +162,7 @@ public class OscilloscopePanel extends JFrame implements OscilloscopeEventHandle
 		// create a new dispatcher
 		dispatcher = new AudioDispatcher(audioStream, bufferSize,
 				overlap);
-
+		
 		// add a processor, handle percussion event.
 		//dispatcher.addAudioProcessor(new DelayEffect(400,0.3,sampleRate));
 		dispatcher.addAudioProcessor(new Oscilloscope(this));
