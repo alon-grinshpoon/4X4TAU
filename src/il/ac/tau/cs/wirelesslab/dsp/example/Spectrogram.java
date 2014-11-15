@@ -137,7 +137,6 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
 							setNewMixer((Mixer) arg0.getNewValue());
 						} catch (LineUnavailableException e) {
 							// TODO Auto-generated catch block
-							Object source = arg0.getSource();
 							JOptionPane.showMessageDialog(null, "Selected mixer is currently in use!", 
 									"Error", JOptionPane.ERROR_MESSAGE);
 							e.printStackTrace();

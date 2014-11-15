@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.sound.sampled.AudioFormat;
@@ -17,12 +18,13 @@ import javax.sound.sampled.Mixer.Info;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.WindowConstants;
 
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 
-import il.ac.tau.cs.wirelesslab.SoundRecorder;
+import il.ac.tau.cs.wirelesslab.Recorder;
 import il.ac.tau.cs.wirelesslab.State;
 import il.ac.tau.cs.wirelesslab.composites.RecordComposite;
 import il.ac.tau.cs.wirelesslab.dsp.example.OscilloscopePanel;
@@ -39,7 +41,7 @@ public class Utils {
 	public final static String DEFAULT_FILE_NAME = "4X4TAU.dsp";
 	public final static String DEFAULT_SKIN = "graphics/skins/default/";
 	public final static String PACKAGE_PATH = "/il/ac/tau/cs/wirelesslab/";
-
+	
 	/**
 	 * Returns the current skin.
 	 */
@@ -140,86 +142,6 @@ public class Utils {
 			} catch (Exception exception) {
 				new XDialog("Error", exception.getMessage());
 			}
-		}
-	}
-	
-	public static class RecordButtonMouseListener implements MouseListener
-	{
-
-		@Override
-		public void mouseDoubleClick(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseDown(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseUp(MouseEvent e) {
-			JFileChooser fileChooser = new JFileChooser();
-			File file = null;
-			if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-				file = fileChooser.getSelectedFile();
-			}
-			if (file != null)
-			{
-				if (State.getData().getMixer() != null)
-				{
-					Mixer mixer = GetMixerFromString(State.getData().getMixer());
-					final SoundRecorder recorder = new SoundRecorder(file, mixer);
-			        // creates a new thread that waits for a specified
-			        // of time before stopping
-			        Thread stopper = new Thread(new Runnable() {
-			            public void run() {
-			                try {
-			                    Thread.sleep(SoundRecorder.RECORD_TIME);
-			                } catch (InterruptedException ex) {
-			                    ex.printStackTrace();
-			                }
-			                recorder.Finish();
-			            }
-			        });
-			 
-			        stopper.start();
-			 
-			        // start recording
-			        recorder.Start();
-			    }
-				}
-				else
-				{
-					AudioFormat format = new AudioFormat(8000.0f, 16, 1, true, true);
-				    try {
-						TargetDataLine microphone = AudioSystem.getTargetDataLine(format);
-					} catch (LineUnavailableException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-			}
-		}
-	
-	public static class StopButtonMouseListener implements MouseListener{
-
-		@Override
-		public void mouseDoubleClick(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseDown(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseUp(MouseEvent e) {
-			RecordComposite.setRecording(false);
 		}
 	}
 	

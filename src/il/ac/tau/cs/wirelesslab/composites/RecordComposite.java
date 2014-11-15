@@ -1,10 +1,22 @@
 package il.ac.tau.cs.wirelesslab.composites;
 
 import il.ac.tau.cs.wirelesslab.graphics.Utils;
-import il.ac.tau.cs.wirelesslab.SoundRecorder;
+import il.ac.tau.cs.wirelesslab.Recorder;
+import il.ac.tau.cs.wirelesslab.State;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.TargetDataLine;
+import javax.swing.JFileChooser;
+
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -18,8 +30,8 @@ public class RecordComposite extends Composite {
 	private Button backwardButton;
 	private Button pauseButton;
 	private Button stopButton;
-	private static boolean isRecording = false;
-	public static SoundRecorder recorder = null;
+	public static boolean isRecording = false;
+	public static Recorder rec = null;
 	
 	final static int NUM_OF_BUTTONS = 6;
 
@@ -43,11 +55,11 @@ public class RecordComposite extends Composite {
 		forwardButton = new Button(this, SWT.PUSH);
 
 		playButton.addMouseListener(new Utils.ExitMouseListener());
-		recordButton.addMouseListener(new Utils.RecordButtonMouseListener());
+		recordButton.addMouseListener(new RecordComposite.RecordButtonMouseListener());
 		forwardButton.addMouseListener(new Utils.ExitMouseListener());
 		backwardButton.addMouseListener(new Utils.ExitMouseListener());
 		pauseButton.addMouseListener(new Utils.ExitMouseListener());
-		stopButton.addMouseListener(new Utils.StopButtonMouseListener());
+		stopButton.addMouseListener(new RecordComposite.StopButtonMouseListener());
 
 		backwardButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false,
 				false));
@@ -126,4 +138,84 @@ public class RecordComposite extends Composite {
 	public static void setRecording(boolean isRecording) {
 		RecordComposite.isRecording = isRecording;
 	}
+	
+	public static class RecordButtonMouseListener implements MouseListener
+	{
+
+		@Override
+		public void mouseDoubleClick(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseDown(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseUp(MouseEvent e) {
+			// TODO Auto-generated method stub
+			if (RecordComposite.isRecording)
+			{
+				return;
+			}
+			JFileChooser fileChooser = new JFileChooser();
+			File file = null;
+			if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION)
+			{
+				file = fileChooser.getSelectedFile();
+			}
+			if (file != null)
+			{
+				if (State.getData().getMixer() != null)
+				{
+					try {
+						RecordComposite.rec = new Recorder(file.getCanonicalPath());
+						RecordComposite.isRecording = true;
+						RecordComposite.rec.startRecording();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+			    }
+			}
+				else
+				{
+					AudioFormat format = new AudioFormat(8000.0f, 16, 1, true, true);
+				    try {
+						TargetDataLine microphone = AudioSystem.getTargetDataLine(format);
+					} catch (LineUnavailableException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			
+		}
+		
+	}
+	
+	public static class StopButtonMouseListener implements MouseListener{		
+
+		@Override
+		public void mouseDoubleClick(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mouseDown(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mouseUp(MouseEvent e) {
+			RecordComposite.rec.stopRecording();
+			RecordComposite.setRecording(false);
+		}
+	}
+
 }
