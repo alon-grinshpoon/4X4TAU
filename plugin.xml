@@ -64,37 +64,37 @@
       <view
             class="il.ac.tau.cs.wirelesslab.views.ViewFavorites"
             id="4X4Plugin.viewFavorites"
-            name="viewFavorites"
+            name="Favorites"
             restorable="true">
       </view>
       <view
             class="il.ac.tau.cs.wirelesslab.views.ViewPlayer"
             id="4X4Plugin.viewPlayer"
-            name="viewPlayer"
+            name="Frequency Setter"
             restorable="true">
       </view>
       <view
             class="il.ac.tau.cs.wirelesslab.views.ViewDevices"
             id="4X4Plugin.viewDevices"
-            name="viewDevices"
+            name="Devices"
             restorable="true">
       </view>
       <view
             class="il.ac.tau.cs.wirelesslab.views.ViewSpectrogram"
             id="4X4Plugin.viewSpectrogram"
-            name="viewSpectrogram"
+            name="DSP Screens"
             restorable="true">
       </view>
       <view
             class="il.ac.tau.cs.wirelesslab.views.ViewRecord"
             id="4X4Plugin.viewRecord"
-            name="viewRecord"
+            name="Recorder/Player"
             restorable="true">
       </view>
       <view
             class="il.ac.tau.cs.wirelesslab.views.ViewSkin"
             id="4X4Plugin.viewSkin"
-            name="viewSkin"
+            name="Skins Chooser"
             restorable="true">
       </view>
    </extension>

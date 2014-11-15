@@ -55,12 +55,17 @@ public class InputPanel extends JPanel {
 	Mixer mixer = null;
 	JFrame parentPanel = null;
 	
-	public InputPanel(JFrame parent){
-		this();
+	public InputPanel()
+	{
+		this(false);
+	}
+	
+	public InputPanel(JFrame parent, boolean isAddWaveRadioButton){
+		this(isAddWaveRadioButton);
 		this.parentPanel = parent;
 	}
 	
-	public InputPanel(){
+	public InputPanel(boolean isAddWaveRadioButton){
 		super(new BorderLayout());
 		this.setBorder(new TitledBorder("1. Choose a microphone input"));
 		JPanel buttonPanel = new JPanel(new GridLayout(0,1));
@@ -74,13 +79,23 @@ public class InputPanel extends JPanel {
 			button.addActionListener(setInput);
 		}
 
-		// Add button to select wave file from filesystem:
-		JRadioButton btn = new JRadioButton();
-		btn.setText("Wave file");
-		group.add(btn);
-		btn.addActionListener(setInput);
-		btn.setActionCommand("Wave file change");
-		buttonPanel.add(btn);
+		if (isAddWaveRadioButton)
+		{
+			// Add button to select wave file from filesystem:
+			JRadioButton waveBtn = new JRadioButton();
+			waveBtn.setText("Wave file");
+			group.add(waveBtn);
+			waveBtn.addActionListener(setInput);
+			waveBtn.setActionCommand("Wave file change");
+			buttonPanel.add(waveBtn);
+		}
+		
+		JRadioButton noneBtn = new JRadioButton();
+		noneBtn.setText("None");
+		group.add(noneBtn);
+		noneBtn.addActionListener(setInput);
+		noneBtn.setActionCommand("None");
+		buttonPanel.add(noneBtn);
 		
 		this.add(new JScrollPane(buttonPanel,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER),BorderLayout.CENTER);
@@ -116,7 +131,7 @@ public class InputPanel extends JPanel {
 						spec.setFileName(file.getAbsolutePath());
 						try
 						{
-						spec.setNewMixer(spec.getCurrentMixer());
+							spec.setNewMixer(spec.getCurrentMixer());
 						}
 						catch (LineUnavailableException | UnsupportedAudioFileException e) {
 							// TODO Auto-generated catch block
@@ -125,6 +140,13 @@ public class InputPanel extends JPanel {
 					}
 				}
 			}
+			else if (arg0.getActionCommand().equals("None"))
+			{
+				// Stop currently selected AudioDispatcher:
+				InputPanel.this.firePropertyChange("mixer", mixer, null);
+				InputPanel.this.mixer = null;
+			}
+			
 		}
 	};
 
