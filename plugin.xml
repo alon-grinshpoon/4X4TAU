@@ -45,7 +45,7 @@
          </menu>
          <menu
                id="4X4Plugin.helpMenu"
-               label="help">
+               label="Help">
             <command
                   commandId="org.eclipse.ui.help.aboutAction"
                   hoverIcon="icons/help_hover.gif"
