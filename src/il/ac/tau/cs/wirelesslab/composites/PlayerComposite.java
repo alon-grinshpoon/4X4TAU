@@ -1,6 +1,7 @@
 package il.ac.tau.cs.wirelesslab.composites;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
 
@@ -23,20 +24,22 @@ public class PlayerComposite extends Composite {
 		gridLayout.numColumns = 1;
 		setLayout(gridLayout);
 
+
 		label = new Label(this, SWT.BOLD);
 		scale = new Scale(this, SWT.NONE);
-
+        
 		label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
 		scale.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 
 		scale.setMaximum(MAX_FREQ);
 		scale.setMinimum(MIN_FREQ);
 		scale.setSelection(DEFAULT_FREQ);
-		label.setText(String.valueOf(scale.getSelection()));
+		label.setFont(new Font(null, "Segoe UI SemiBold", 20, 0));
+		label.setText(String.valueOf(scale.getSelection()) + " [MHz]");
 		label.setSize(100, 100);
 		scale.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
-				label.setText(String.valueOf(scale.getSelection()));
+				label.setText(String.valueOf(scale.getSelection()) + " [MHz]");
 			}
 		});
 

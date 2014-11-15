@@ -32,8 +32,9 @@ public class RecordComposite extends Composite {
 	private Button stopButton;
 	public static boolean isRecording = false;
 	public static Recorder rec = null;
+	private Button volumeButton;
 	
-	final static int NUM_OF_BUTTONS = 6;
+	final static int NUM_OF_BUTTONS = 7;
 
 	private Composite composite;
 
@@ -51,9 +52,10 @@ public class RecordComposite extends Composite {
 		stopButton = new Button(this, SWT.PUSH);
 		pauseButton = new Button(this, SWT.PUSH);
 		playButton = new Button(this, SWT.PUSH);
-		recordButton = new Button(this, SWT.PUSH);
+		recordButton = new Button(this, SWT.TOGGLE);
 		forwardButton = new Button(this, SWT.PUSH);
-
+        volumeButton = new Button(this, SWT.PUSH);
+		
 		playButton.addMouseListener(new Utils.ExitMouseListener());
 		recordButton.addMouseListener(new RecordComposite.RecordButtonMouseListener());
 		forwardButton.addMouseListener(new Utils.ExitMouseListener());
@@ -73,6 +75,8 @@ public class RecordComposite extends Composite {
 				false));
 		forwardButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false,
 				false));
+		volumeButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false,
+						false));
 
 		// Set Buttons Images
 		String filePlay = Utils.PACKAGE_PATH + Utils.getSkin() + "/Play.png";
@@ -114,6 +118,12 @@ public class RecordComposite extends Composite {
 				.getResourceAsStream(filePause);
 		final Image imgPause = new Image(this.getDisplay(), resourcePause);
 		pauseButton.setImage(imgPause);
+		
+		String fileVolume = Utils.PACKAGE_PATH + Utils.getSkin() + "/Volume.png";
+		InputStream resourceVolume = FavoritesComposite.class.getClassLoader()
+				.getResourceAsStream(fileVolume);
+		final Image imgVolume = new Image(this.getDisplay(), resourceVolume);
+		volumeButton.setImage(imgVolume);
 
 		playButton.setText("Play");
 		recordButton.setText("Record");
@@ -121,6 +131,7 @@ public class RecordComposite extends Composite {
 		backwardButton.setText("Backward");
 		pauseButton.setText("Pause");
 		stopButton.setText("Stop");
+		volumeButton.setText("Volume");
 
 		composite = new Composite(this, SWT.NONE);
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, true,
@@ -159,6 +170,8 @@ public class RecordComposite extends Composite {
 			// TODO Auto-generated method stub
 			if (RecordComposite.isRecording)
 			{
+				RecordComposite.rec.stopRecording();
+				RecordComposite.setRecording(false);
 				return;
 			}
 			JFileChooser fileChooser = new JFileChooser();
@@ -213,8 +226,11 @@ public class RecordComposite extends Composite {
 
 		@Override
 		public void mouseUp(MouseEvent e) {
-			RecordComposite.rec.stopRecording();
-			RecordComposite.setRecording(false);
+			if (RecordComposite.isRecording())
+			{
+				RecordComposite.rec.stopRecording();
+				RecordComposite.setRecording(false);
+			}
 		}
 	}
 
