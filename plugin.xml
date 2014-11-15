@@ -27,47 +27,15 @@
                id="4X4Plugin.viewMenu"
                label="View">
             <command
-                  commandId="4X4Plugin.Devices"
-                  hoverIcon="icons/radio_hover.gif"
-                  icon="icons/radio_active.gif"
-                  label="Devices"
+                  commandId="org.eclipse.ui.views.showView"
+                  hoverIcon="icons/open_view.gif"
+                  icon="icons/open_view_hover.gif"
+                  label="Open Views"
                   style="push"
                   tooltip="Configure different devices">
             </command>
             <command
-                  commandId="4X4Plugin.Favorites"
-                  hoverIcon="icons/favorites_hover.gif"
-                  icon="icons/favorites_active.gif"
-                  label="Favorites"
-                  style="push"
-                  tooltip="Add\Open radio favorites">
-            </command>
-            <command
-                  commandId="4X4Plugin.Player"
-                  hoverIcon="play_hover.gif"
-                  icon="icons/play_active.gif"
-                  label="Player"
-                  style="push"
-                  tooltip="Play sound">
-            </command>
-            <command
-                  commandId="4X4Plugin.Exit"
-                  hoverIcon="icons/record_hover.gif"
-                  icon="icons/record_active.gif"
-                  label="Record"
-                  style="push"
-                  tooltip="Record sound">
-            </command>
-            <command
-                  commandId="4X4Plugin.Spectogram"
-                  hoverIcon="icons/dsp_hover.gif"
-                  icon="icons/dsp_active.gif"
-                  label="Spectogram"
-                  style="push"
-                  tooltip="Play spectogram">
-            </command>
-            <command
-                  commandId="4X4Plugin.Exit"
+                  commandId="org.eclipse.ui.file.exit"
                   hoverIcon="icons/exit_hover.gif"
                   icon="icons/exit_active.gif"
                   label="Exit"
