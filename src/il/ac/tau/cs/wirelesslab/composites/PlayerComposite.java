@@ -58,6 +58,6 @@ public class PlayerComposite extends Composite {
 
 	public static void setFrequency(double frequency) {
 		scale.setSelection((int)frequency);
-		label.setText(String.valueOf(frequency));
+		label.setText(String.valueOf(frequency) + " [MHz]");
 	}
 }
