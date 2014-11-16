@@ -5,7 +5,8 @@
    <extension
          id="application"
          point="org.eclipse.core.runtime.applications">
-      <application>
+      <application
+            icon="icons/radio_viewIcon.png">
          <run
                class="il.ac.tau.cs.wirelesslab.Application">
          </run>
@@ -14,9 +15,10 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            name="RCP Perspective"
             class="il.ac.tau.cs.wirelesslab.Perspective"
-            id="4X4Plugin.perspective">
+            icon="icons/radio_viewIcon.png"
+            id="4X4Plugin.perspective"
+            name="RCP Perspective">
       </perspective>
    </extension>
    <extension
@@ -50,6 +52,8 @@
                   commandId="org.eclipse.ui.help.aboutAction"
                   hoverIcon="icons/help_hover.gif"
                   icon="icons/help_active.gif"
+                  label="About"
+                  mode="FORCE_TEXT"
                   style="push"
                   tooltip="About 4X4Tau Product">
             </command>
@@ -57,53 +61,47 @@
       </menuContribution>
    </extension>
    <extension
-	point="org.eclipse.ui.actionSets">
-	<actionSet
-		label="%OPEN_DEVICES_VIEW"
-		visible="true"
-		id="4X4Plugin.Devices">
-		<action
-			label="%OPEN_DEVICES_VIEW_MENU"
-			class="il.ac.tau.cs.wirelesslab.views.ViewGeneralMenu.OpenDevicesAction"
-			menubarPath="View/Devices"
-			id="il.ac.tau.cs.wirelesslab.views.ViewGeneralMenu.OpenDevicesAction">
-		</action>
-	</actionSet>
-   </extension>
-   <extension
          point="org.eclipse.ui.views">
       <view
+            allowMultiple="false"
             class="il.ac.tau.cs.wirelesslab.views.ViewFavorites"
+            icon="icons/radio_viewIcon.png"
             id="4X4Plugin.viewFavorites"
             name="Favorites"
             restorable="true">
       </view>
       <view
+            allowMultiple="false"
             class="il.ac.tau.cs.wirelesslab.views.ViewPlayer"
+            icon="icons/radio_viewIcon.png"
             id="4X4Plugin.viewPlayer"
             name="Frequency Setter"
             restorable="true">
       </view>
       <view
             class="il.ac.tau.cs.wirelesslab.views.ViewDevices"
+            icon="icons/radio_viewIcon.png"
             id="4X4Plugin.viewDevices"
             name="Devices"
             restorable="true">
       </view>
       <view
             class="il.ac.tau.cs.wirelesslab.views.ViewSpectrogram"
+            icon="icons/radio_viewIcon.png"
             id="4X4Plugin.viewSpectrogram"
             name="DSP Screens"
             restorable="true">
       </view>
       <view
             class="il.ac.tau.cs.wirelesslab.views.ViewRecord"
+            icon="icons/radio_viewIcon.png"
             id="4X4Plugin.viewRecord"
             name="Recorder/Player"
             restorable="true">
       </view>
       <view
             class="il.ac.tau.cs.wirelesslab.views.ViewSkin"
+            icon="icons/radio_viewIcon.png"
             id="4X4Plugin.viewSkin"
             name="Skins Chooser"
             restorable="true">
