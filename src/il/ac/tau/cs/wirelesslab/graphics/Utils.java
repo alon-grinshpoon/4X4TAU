@@ -1,35 +1,23 @@
 package il.ac.tau.cs.wirelesslab.graphics;
 
-import java.awt.Container;
+import il.ac.tau.cs.wirelesslab.State;
+import il.ac.tau.cs.wirelesslab.dsp.example.OscilloscopePanel;
+import il.ac.tau.cs.wirelesslab.dsp.example.Spectrogram;
+import il.ac.tau.cs.wirelesslab.views.ViewSpectrogram;
+
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 
-import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.Mixer;
-import javax.sound.sampled.TargetDataLine;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.sound.sampled.Mixer.Info;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
 import javax.swing.WindowConstants;
 
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
-
-import il.ac.tau.cs.wirelesslab.Recorder;
-import il.ac.tau.cs.wirelesslab.State;
-import il.ac.tau.cs.wirelesslab.composites.RecordComposite;
-import il.ac.tau.cs.wirelesslab.dsp.example.OscilloscopePanel;
-import il.ac.tau.cs.wirelesslab.dsp.example.Spectrogram;
-import il.ac.tau.cs.wirelesslab.views.ViewSpectrogram;
 
 public class Utils {
 

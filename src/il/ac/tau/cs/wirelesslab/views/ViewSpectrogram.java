@@ -1,20 +1,11 @@
 package il.ac.tau.cs.wirelesslab.views;
 
 import il.ac.tau.cs.wirelesslab.composites.SpectrogramComposite;
-import il.ac.tau.cs.wirelesslab.dsp.example.Spectrogram;
-import il.ac.tau.cs.wirelesslab.dsp.example.SpectrogramPanel;
 
-import java.awt.Frame;
-
-import javax.swing.JApplet;
 import javax.swing.JFrame;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.awt.SWT_AWT;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.part.ViewPart;
 
 public class ViewSpectrogram extends ViewPart {

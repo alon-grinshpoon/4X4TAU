@@ -4,7 +4,6 @@ import il.ac.tau.cs.wirelesslab.composites.RecordComposite;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.part.ViewPart;
 
 public class ViewRecord extends ViewPart {

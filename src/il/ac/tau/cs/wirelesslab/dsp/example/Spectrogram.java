@@ -35,7 +35,6 @@ import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchDetectionResult;
 import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchProcessor;
 import il.ac.tau.cs.wirelesslab.dsp.pitch.PitchProcessor.PitchEstimationAlgorithm;
 import il.ac.tau.cs.wirelesslab.dsp.util.fft.FFT;
-import il.ac.tau.cs.wirelesslab.graphics.XDialog;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -45,7 +44,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -58,8 +56,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 public class Spectrogram extends JFrame implements PitchDetectionHandler {
@@ -153,7 +149,7 @@ public class Spectrogram extends JFrame implements PitchDetectionHandler {
 		
 		JPanel otherContainer = new JPanel(new BorderLayout());
 		otherContainer.add(panel,BorderLayout.CENTER);
-		otherContainer.setBorder(new TitledBorder("3. Utter a sound (whistling works best)"));
+		otherContainer.setBorder(new TitledBorder("Spectrogram"));
 		
 		
 		this.add(otherContainer,BorderLayout.CENTER);
